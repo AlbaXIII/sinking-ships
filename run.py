@@ -3,25 +3,24 @@ import board
 from random import randrange
 
 
-"""
-define ship and hit icons for visual indicator on maps
-"""
+
+# define ship and hit icons for visual indicator on maps
 ships = ["B"]
 hit = ["X"]
 
 def bsea():
-"""
-function to fill empty board with 'sea' icons for user board
-"""
+    """
+    function to fill empty board with 'sea' icons for user board
+    """
     import random, string
     while True:
         yield random.choice("~")
 
 
 def csea():
-"""
-function to fill empty board with 'sea' icons for computer and dummy board
-"""
+    """
+    function to fill empty board with 'sea' icons for computer and dummy board
+    """
     import random, string
     while True:
         yield random.choice("-")
@@ -57,3 +56,16 @@ dmed.populate(csea())
 dlarge = board.Board((12, 12))
 dlarge.populate(csea())
 
+def create_user():
+    """
+    function for player username registration for later use
+    """
+    while True:
+        username = input("Who are you?\n")
+        if username:
+            print(f"\nWelcome to the fleet {username}!\n")
+            return username
+        else:
+            print("I can't hear you! Try again.")
+
+create_user()
