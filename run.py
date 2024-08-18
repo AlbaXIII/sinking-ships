@@ -104,7 +104,7 @@ def player_coords(player_map, bsmall, bmed, blarge):
     """
     while True:
         
-        if player_map == bsmall:
+        if player_map == bsmall: 
             try:
                 row = int(input("\nPlease select column: ")) 
                 col = int(input("Please select row: "))
@@ -148,6 +148,44 @@ def player_coords(player_map, bsmall, bmed, blarge):
                 print("Invalid input! Please enter a number!")
                 player_coords(player_map, bsmall, bmed, blarge)
             break
+
+def comp_coords(comp_map, csmall, cmed, clarge):
+    """
+    Function for computer ship placement on all board sizes
+    """
+    while True:
+
+        if comp_map == csmall:
+            for ship in ships:
+                while True: 
+                    row = randrange(0, 7)
+                    col = randrange(0, 7)
+                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    break
+            return comp_map
+
+        elif comp_map == cmed:
+            for ship in ships:
+                while True: 
+                    row = randrange(0, 9)
+                    col = randrange(0, 9)
+                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    break
+            return comp_map
+
+        elif comp_map == clarge:
+            for ship in ships:
+                while True: 
+                    row = randrange(0, 11)
+                    col = randrange(0,11)
+                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    break
+            return comp_map
+
+
+
+
+        
 
 
 
