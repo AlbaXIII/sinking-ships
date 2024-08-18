@@ -68,4 +68,33 @@ def create_user():
         else:
             print("I can't hear you! Try again.")
 
-create_user()
+def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge):
+    """
+    function to choose map size for game
+    """
+    while True:
+        map_size = input("Please choose a map size - [S/M/L]\n")
+        if map_size in ["S", "s"]:
+            print("\nSmall map selected - 5 ships\n")
+            bsmall.draw()
+            player_map = bsmall
+            comp_map = csmall
+            dummy_map = dsmall
+            return player_map
+        elif map_size in ["M", "m"]:
+            print("\nMedium map selected - 7 ships\n")
+            bmed.draw()
+            player_map = bmed
+            comp_map = cmed
+            dummy_map = dmed
+            return player_map
+        elif map_size in ["L", "l"]:
+            print("\nLarge map selected - 10 ships\n")
+            blarge.draw()
+            player_map = blarge
+            comp_map = clarge
+            dummy_map = dlarge
+            return player_map
+        else:
+            print("What! Please select S/M/L")
+
