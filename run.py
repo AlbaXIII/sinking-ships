@@ -183,6 +183,21 @@ def comp_coords(comp_map, csmall, cmed, clarge):
             return comp_map
 
 
+def play_game():
+    print(Style.RESET_ALL + "\nWelcome to\n")
+    print("------------------\n")
+    print(Fore.CYAN + "S I N K I N G  S H I P S\n" + Style.RESET_ALL)
+    print("------------------\n")
+    username = create_user()
+    print("\nI am the great Admiral Dolvalski!\n")
+    print("Look sharp, for we are the sole protectors of this island!\n")
+    print("Red alert! Schools of deadly squid are attacking!\n")
+    print("The fiends approach! Take command of our defenses and man the cannons!\n")
+    print("Choose an angle of attack, and sink them all!\n")
+    print(Fore.BLUE + f"We're counting on you {username}!\n" + Style.RESET_ALL)
+
+play_game()
+
 
 
         
