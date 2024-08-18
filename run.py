@@ -98,3 +98,56 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
         else:
             print("What! Please select S/M/L")
 
+def player_coords(player_map, bsmall, bmed, blarge):
+    """
+    Function for selection of ship placement on user board
+    """
+    while True:
+        
+        if player_map == bsmall:
+            try:
+                row = int(input("\nPlease select column: ")) 
+                col = int(input("Please select row: "))
+                if 0 <= row < 8 and 0 <= col < 8 and (row, col):
+                    bsmall.populate(ships, bsmall.iterline((row, col), (1, 0)))
+                else:
+                    print("Invalid markers - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge)
+                    break
+            except ValueError:
+                print("Invalid input! Please enter a number!")
+                player_coords(player_map, bsmall, bmed, blarge)
+            break
+        
+        elif player_map == bmed:
+            try:
+                row = int(input("\nPlease select column: ")) 
+                col = int(input("Please select row: "))
+                if 0 <= row < 10 and 0 <= col < 10 and (row, col):
+                    bmed.populate(ships, bmed.iterline((row, col), (1, 0)))
+                else:
+                    print("Invalid markers - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge)
+                    break
+            except ValueError:
+                print("Invalid input! Please enter a number!")
+                player_coords(player_map, bsmall, bmed, blarge)
+            break
+
+        elif player_map == blarge:
+            try:
+                row = int(input("\nPlease select column: ")) 
+                col = int(input("Please select row: "))
+                if 0 <= row < 12 and 0 <= col < 12 and (row, col):
+                    blarge.populate(ships, blarge.iterline((row, col), (1, 0)))
+                else:
+                    print("Invalid markers - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge)
+                    break
+            except ValueError:
+                print("Invalid input! Please enter a number!")
+                player_coords(player_map, bsmall, bmed, blarge)
+            break
+
+
+
