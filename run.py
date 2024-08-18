@@ -195,6 +195,25 @@ def play_game():
     print("The fiends approach! Take command of our defenses and man the cannons!\n")
     print("Choose an angle of attack, and sink them all!\n")
     print(Fore.BLUE + f"We're counting on you {username}!\n" + Style.RESET_ALL)
+    occupied = set()
+    player_map = choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
+    print("\nPlease select coordinates for your ships!\n")
+    if player_map == bsmall:
+        comp_map = csmall
+        for x in range (0, 5):
+            player_coords(player_map, bsmall, bmed, blarge)
+            comp_coords(comp_map, csmall, cmed, clarge)
+    elif player_map == bmed:
+        comp_map = cmed
+        for x in range (0, 7):
+            player_coords(player_map, bsmall, bmed, blarge)
+            comp_coords(comp_map, csmall, cmed, clarge)
+    elif player_map == blarge:
+        comp_map = clarge
+        for x in range (0, 10):
+            player_coords(player_map, bsmall, bmed, blarge)
+            comp_coords(comp_map, csmall, cmed, clarge)
+
 
 
 play_game()
