@@ -169,7 +169,7 @@ def comp_coords(comp_map, csmall, cmed, clarge):
                 while True: 
                     row = randrange(0, 9)
                     col = randrange(0, 9)
-                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
                     break
             return comp_map
 
@@ -178,7 +178,7 @@ def comp_coords(comp_map, csmall, cmed, clarge):
                 while True: 
                     row = randrange(0, 11)
                     col = randrange(0,11)
-                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
                     break
             return comp_map
 
@@ -195,6 +195,7 @@ def play_game():
     print("The fiends approach! Take command of our defenses and man the cannons!\n")
     print("Choose an angle of attack, and sink them all!\n")
     print(Fore.BLUE + f"We're counting on you {username}!\n" + Style.RESET_ALL)
+
 
 play_game()
 
