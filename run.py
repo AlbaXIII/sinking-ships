@@ -73,6 +73,7 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
     function to choose map size for game
     """
     while True:
+
         map_size = input("Please choose a map size - [S/M/L]\n")
         if map_size in ["S", "s"]:
             print("\nSmall map selected - 5 ships\n")
@@ -81,6 +82,7 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
             comp_map = csmall
             dummy_map = dsmall
             return player_map
+
         elif map_size in ["M", "m"]:
             print("\nMedium map selected - 7 ships\n")
             bmed.draw()
@@ -89,12 +91,14 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
             dummy_map = dmed
             return player_map
         elif map_size in ["L", "l"]:
+
             print("\nLarge map selected - 10 ships\n")
             blarge.draw()
             player_map = blarge
             comp_map = clarge
             dummy_map = dlarge
             return player_map
+            
         else:
             print("What! Please select S/M/L")
 
@@ -184,17 +188,21 @@ def comp_coords(comp_map, csmall, cmed, clarge):
 
 
 def play_game():
+
     print(Style.RESET_ALL + "\nWelcome to\n")
     print("------------------\n")
     print(Fore.CYAN + "S I N K I N G  S H I P S\n" + Style.RESET_ALL)
     print("------------------\n")
+
     username = create_user()
+
     print("\nI am the great Admiral Dolvalski!\n")
     print("Look sharp, for we are the sole protectors of this island!\n")
     print("Red alert! Schools of deadly squid are attacking!\n")
     print("The fiends approach! Take command of our defenses and man the cannons!\n")
     print("Choose an angle of attack, and sink them all!\n")
     print(Fore.BLUE + f"We're counting on you {username}!\n" + Style.RESET_ALL)
+
     occupied = set()
     player_map = choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
     print("\nPlease select coordinates for your ships!\n")
@@ -213,6 +221,7 @@ def play_game():
         for x in range (0, 10):
             player_coords(player_map, bsmall, bmed, blarge)
             comp_coords(comp_map, csmall, cmed, clarge)
+
 
 
 
