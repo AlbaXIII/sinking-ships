@@ -98,7 +98,7 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
             comp_map = clarge
             dummy_map = dlarge
             return player_map
-            
+
         else:
             print("What! Please select S/M/L")
 
@@ -185,6 +185,48 @@ def comp_coords(comp_map, csmall, cmed, clarge):
                     clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
                     break
             return comp_map
+
+def check_hit_player(comp_map, player_hits, dummy_map, username): #dummy board with hits?
+    print (f"{username}'s turn to attack!\n")
+    
+    player_hits = 1
+
+    row = int(input("Enter your attack column: "))
+    col = int(input("Enter your attack row: "))
+
+    if comp_map == csmall:
+        dummy_map = dsmall
+        if row > 7 or col > 7:
+            print("\nPlease select coordinates within boundaries!(0 - 7)\n")
+            check_hit_player(comp_map, player_hits, username)
+
+    elif comp_map == cmed:
+        dummy_map = dmed
+        if row > 9 or col > 9:
+            print("\nPlease select coordinates within boundaries! (0-9)\n")
+            check_hit_player(comp_map, player_hits, username)
+
+    elif comp_map == clarge:
+        dummy_map = dlarge
+        if row > 11 or col > 11:
+            print("\nPlease select coordinates within boundaries! (0-11)\n")
+            check_hit_player(comp_map, player_hits, username)
+
+    elif comp_map[row, col] == "B":
+        print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
+        dummy_map_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        player_hits += 1
+        print(f"Hit number : {player_hits}")
+
+    else:
+        print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
+        dummy_map_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        player_hits = 0
+
+    return player_hits
+
+
+
 
 
 def play_game():
