@@ -220,12 +220,14 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
     elif comp_map[row, col] == "B":
         print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
         dummy_map_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        dummy_map.draw()
         player_hits += 1
         print(f"Hit number : {player_hits}")
 
     else:
         print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
         dummy_map_map.populate(miss, player_map.iterline((row, col), (1, 0)))
+        dummy_map.draw()
         player_hits = 0
 
     return player_hits
@@ -290,16 +292,19 @@ def play_game():
     print("\nPlease select coordinates for your ships!\n")
     if player_map == bsmall:
         comp_map = csmall
+        dummy_map = dsmall
         for x in range (0, 5):
             player_coords(player_map, bsmall, bmed, blarge)
             comp_coords(comp_map, csmall, cmed, clarge)
     elif player_map == bmed:
         comp_map = cmed
+        dummy_map = dmed
         for x in range (0, 7):
             player_coords(player_map, bsmall, bmed, blarge)
             comp_coords(comp_map, csmall, cmed, clarge)
     elif player_map == blarge:
         comp_map = clarge
+        dummy_map = dlarge
         for x in range (0, 10):
             player_coords(player_map, bsmall, bmed, blarge)
             comp_coords(comp_map, csmall, cmed, clarge)
@@ -310,11 +315,11 @@ def play_game():
     print("Squid formation assembling...")
     print(Fore.BLUE + "Begin the attack!\n" + Style.RESET_ALL)
 
-
+    player_hits = 0
+    comp_hits = 0
 
     while True:
-        check_hit_player(comp_map, player_hits, username)
-
+        check_hit_player(comp_map, player_hits, dummy_map, username)
         check_hit_comp(player_map, comp_hits, username)
 
 
