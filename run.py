@@ -58,6 +58,7 @@ def create_user():
     """
     function for player username registration for later use
     """
+
     while True:
         username = input("Who are you?\n")
         if username:
@@ -70,6 +71,7 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
     """
     function to choose map size for game
     """
+
     while True:
 
         map_size = input("Please choose a map size - [S/M/L]\n")
@@ -157,36 +159,40 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
 
     return player_map, occupied
 
-def comp_coords(comp_map, csmall, cmed, clarge):
+def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
     """
     Function for computer ship placement on all board sizes
     """
+
     while True:
 
         if comp_map == csmall:
             for ship in ships:
                 while True: 
-                    row = randrange(0, 7)
-                    col = randrange(0, 7)
+                    row = randrange(0, 7) not in c_occupied
+                    col = randrange(0, 7) not in c_occupied
                     csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    c_occupied.add((row, col))
                     break
-            return comp_map
+            return comp_map,
 
         elif comp_map == cmed:
             for ship in ships:
                 while True: 
-                    row = randrange(0, 9)
-                    col = randrange(0, 9)
+                    row = randrange(0, 9) not in c_occupied
+                    col = randrange(0, 9) not in c_occupied
                     cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
+                    c_occupied.add((row, col))
                     break
             return comp_map
 
         elif comp_map == clarge:
             for ship in ships:
                 while True: 
-                    row = randrange(0, 11)
-                    col = randrange(0,11)
+                    row = randrange(0,11) not in c_occupied
+                    col = randrange(0,11) not in c_occupied
                     clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
+                    c_occupied.add((row, col))
                     break
             return comp_map
 
@@ -277,6 +283,7 @@ def play_game():
     player_map = choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
 
     occupied = set()
+    c_occupied = set()
 
     print("\nPlease select coordinates for your ships!\n")
     if player_map == bsmall:
@@ -284,19 +291,19 @@ def play_game():
         dummy_map = dsmall
         for x in range (0, 5):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
-            comp_coords(comp_map, csmall, cmed, clarge)
+            comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
         for x in range (0, 7):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
-            comp_coords(comp_map, csmall, cmed, clarge)
+            comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
         for x in range (0, 10):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
-            comp_coords(comp_map, csmall, cmed, clarge)
+            comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
 
     print(f"\n {username} formation confirmed!")
     player_map.draw()
