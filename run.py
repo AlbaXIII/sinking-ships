@@ -2,8 +2,6 @@ from colorama import Fore, Back, Style
 import board
 from random import randrange
 
-
-
 # define ship and hit icons for visual indicator on maps
 ships = ["B"]
 hit = ["X"]
@@ -46,7 +44,7 @@ clarge = board.Board((12, 12))
 clarge.populate(csea())
 
 # define small/medium/large dummy boards & populate grid with csea background
-# dummy board for visual indication of user attack without showing comp positions
+# dummy board for visual indication of user attack without showing comp ship positions
 dsmall = board.Board((8, 8))
 dsmall.populate(csea())
 
@@ -312,8 +310,6 @@ def play_game():
     while True:
         check_hit_player(comp_map, player_hits, dummy_map, username)
         check_hit_comp(player_map, comp_hits, username)
-
-
 
 play_game()
 
