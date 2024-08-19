@@ -17,7 +17,6 @@ def bsea():
     while True:
         yield random.choice("~")
 
-
 def csea():
     """
     function to fill empty board with 'sea' icons for computer and dummy board
@@ -103,56 +102,62 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
         else:
             print("What! Please select S/M/L")
 
-def player_coords(player_map, bsmall, bmed, blarge):
+def player_coords(player_map, bsmall, bmed, blarge, occupied):
     """
     Function for selection of ship placement on user board
     """
+
     while True:
         
         if player_map == bsmall: 
             try:
-                row = int(input("\nPlease select column: ")) 
-                col = int(input("Please select row: "))
-                if 0 <= row < 8 and 0 <= col < 8 and (row, col):
+                col = int(input("\nPlease select column: ")) 
+                row = int(input("Please select row: "))
+                if 0 <= row < 8 and 0 <= col < 8 and (row, col) not in occupied:
                     bsmall.populate(ships, bsmall.iterline((row, col), (1, 0)))
+                    occupied.add((row, col))
                 else:
-                    print("Invalid markers - please try again!")
-                    player_coords(player_map, bsmall, bmed, blarge)
+                    print("Invalid coordinates - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
                 print("Invalid input! Please enter a number!")
-                player_coords(player_map, bsmall, bmed, blarge)
+                player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
         
         elif player_map == bmed:
             try:
                 row = int(input("\nPlease select column: ")) 
                 col = int(input("Please select row: "))
-                if 0 <= row < 10 and 0 <= col < 10 and (row, col):
+                if 0 <= row < 10 and 0 <= col < 10 and (row, col) not in occupied:
                     bmed.populate(ships, bmed.iterline((row, col), (1, 0)))
+                    occupied.add((row, col))
                 else:
-                    print("Invalid markers - please try again!")
-                    player_coords(player_map, bsmall, bmed, blarge)
+                    print("Invalid coordinates - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
                 print("Invalid input! Please enter a number!")
-                player_coords(player_map, bsmall, bmed, blarge)
+                player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
 
         elif player_map == blarge:
             try:
                 row = int(input("\nPlease select column: ")) 
                 col = int(input("Please select row: "))
-                if 0 <= row < 12 and 0 <= col < 12 and (row, col):
+                if 0 <= row < 12 and 0 <= col < 12 and (row, col) not in occupied:
                     blarge.populate(ships, blarge.iterline((row, col), (1, 0)))
+                    occupied.add((row, col))
                 else:
-                    print("Invalid markers - please try again!")
-                    player_coords(player_map, bsmall, bmed, blarge)
+                    print("Invalid coordinates - please try again!")
+                    player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
                 print("Invalid input! Please enter a number!")
-                player_coords(player_map, bsmall, bmed, blarge)
+                player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
+
+    return player_map, occupied
 
 def comp_coords(comp_map, csmall, cmed, clarge):
     """
@@ -213,7 +218,7 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
         print("\nEnemy board:")
         dummy_map.draw()
         player_hits = 0
-
+    
     return player_hits
 
 def check_hit_comp(player_map, comp_hits, username):
@@ -271,26 +276,28 @@ def play_game():
     print("Choose an angle of attack, and sink them all!\n")
     print(Fore.BLUE + f"We're counting on you {username}!\n" + Style.RESET_ALL)
 
-    occupied = set()
     player_map = choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
+
+    occupied = set()
+
     print("\nPlease select coordinates for your ships!\n")
     if player_map == bsmall:
         comp_map = csmall
         dummy_map = dsmall
         for x in range (0, 5):
-            player_coords(player_map, bsmall, bmed, blarge)
+            player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge)
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
         for x in range (0, 7):
-            player_coords(player_map, bsmall, bmed, blarge)
+            player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge)
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
         for x in range (0, 10):
-            player_coords(player_map, bsmall, bmed, blarge)
+            player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge)
 
     print(f"\n {username} formation confirmed!")
@@ -305,7 +312,6 @@ def play_game():
     while True:
         check_hit_player(comp_map, player_hits, dummy_map, username)
         check_hit_comp(player_map, comp_hits, username)
-
 
 
 
