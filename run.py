@@ -7,6 +7,7 @@ from random import randrange
 # define ship and hit icons for visual indicator on maps
 ships = ["B"]
 hit = ["X"]
+miss = ["O"]
 
 def bsea():
     """
@@ -220,7 +221,7 @@ def check_hit_player(comp_map, player_hits, dummy_map, username): #dummy board w
 
     else:
         print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
-        dummy_map_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        dummy_map_map.populate(miss, player_map.iterline((row, col), (1, 0)))
         player_hits = 0
 
     return player_hits
@@ -247,10 +248,10 @@ def check_hit_comp(player_map, comp_hits, username):
         print(f"Squid hits : {comp_hits}")
         print(f"\n{username}'s board:")
         player_map.draw()
-        
+
     else:
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
-        player_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        player_map.populate(miss, player_map.iterline((row, col), (1, 0)))
         print(f"\n{username}'s board:")
         player_map.draw()
         comp_hits = 0
