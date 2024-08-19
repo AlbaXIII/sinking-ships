@@ -225,9 +225,37 @@ def check_hit_player(comp_map, player_hits, dummy_map, username): #dummy board w
 
     return player_hits
 
+def check_hit_comp(player_map, comp_hits, username):
+    print("\nThe Squid are closing in...\n")
 
+    comp_hits = 1
+    
+    if player_map == bsmall:
+        row = randrange(0,7)
+        col = randrange(0,7)
+    elif player_map == bmed:
+        row = randrange(0,9)
+        col = randrange(0,9)
+    elif player_map == blarge:
+        row = randrange(0,11)
+        col = randrange(0,11)
 
+    if player_map[row, col] == "B":
+        print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
+        comp_hits += 1
+        player_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        print(f"Squid hits : {comp_hits}")
+        print(f"\n{username}'s board:")
+        player_map.draw()
+        
+    else:
+        print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
+        player_map.populate(hit, player_map.iterline((row, col), (1, 0)))
+        print(f"\n{username}'s board:")
+        player_map.draw()
+        comp_hits = 0
 
+    return comp_hits
 
 def play_game():
 
