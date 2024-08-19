@@ -293,6 +293,17 @@ def play_game():
             player_coords(player_map, bsmall, bmed, blarge)
             comp_coords(comp_map, csmall, cmed, clarge)
 
+    print(f"\n {username} formation confirmed!")
+    player_map.draw()
+
+    print("Squid formation assembling...")
+    print(Fore.BLUE + "Begin the attack!\n" + Style.RESET_ALL)
+
+    while True:
+        check_hit_player(comp_map, player_hits, username)
+
+        check_hit_comp(player_map, comp_hits, username)
+
 
 
 
