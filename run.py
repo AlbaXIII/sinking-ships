@@ -187,7 +187,11 @@ def comp_coords(comp_map, csmall, cmed, clarge):
                     break
             return comp_map
 
-def check_hit_player(comp_map, player_hits, dummy_map, username): #dummy board with hits?
+def check_hit_player(comp_map, player_hits, dummy_map, username): 
+    """
+    Function to check if player hit on comp_board is successful
+    """
+
     print (f"{username}'s turn to attack!\n")
     
     player_hits = 1
@@ -227,6 +231,10 @@ def check_hit_player(comp_map, player_hits, dummy_map, username): #dummy board w
     return player_hits
 
 def check_hit_comp(player_map, comp_hits, username):
+    """
+    Function to check if player hit on comp_board is successful
+    """
+
     print("\nThe Squid are closing in...\n")
 
     comp_hits = 1
@@ -259,6 +267,9 @@ def check_hit_comp(player_map, comp_hits, username):
     return comp_hits
 
 def play_game():
+    """
+    Main game loop function incorperating all functions above with flavor text for story
+    """
 
     print(Style.RESET_ALL + "\nWelcome to\n")
     print("------------------\n")
@@ -298,6 +309,8 @@ def play_game():
 
     print("Squid formation assembling...")
     print(Fore.BLUE + "Begin the attack!\n" + Style.RESET_ALL)
+
+
 
     while True:
         check_hit_player(comp_map, player_hits, username)
