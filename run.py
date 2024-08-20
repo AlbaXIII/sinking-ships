@@ -205,10 +205,11 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
     
     player_hits = 1
 
-    col = int(input("Enter your attack column: "))
-    row = int(input("Enter your attack row: "))
-
     try:
+
+        col = int(input("Enter your attack column: "))
+        row = int(input("Enter your attack row: "))
+
         if comp_map[col, row] == "B":
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
@@ -223,6 +224,10 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
             print("\nEnemy board:")
             dummy_map.draw()
             player_hits = 0
+
+    except ValueError:
+        print("Please enter a number!")
+        check_hit_player(comp_map, player_hits, dummy_map, username)
 
     except board.Board.OutOfBoundsError:
         print("Please select a coordinate within game bounds!")
