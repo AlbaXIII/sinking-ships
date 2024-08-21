@@ -268,7 +268,10 @@ def check_hit_comp(player_map, username):
     return impact
 
 def game_loop(player_map, comp_map, dummy_map, username):
-    
+    """
+    Function to loop player & computer attacks until winner
+    """
+
     player_hits = 0
     comp_hits = 0
 
@@ -300,6 +303,9 @@ def game_loop(player_map, comp_map, dummy_map, username):
             break 
 
 def game_restart():
+    """
+    Function to prompt user to play again or break loop
+    """
 
     restart = input("Would you like to play again? (Y/N)\n")
         
