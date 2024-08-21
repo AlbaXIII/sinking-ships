@@ -275,28 +275,28 @@ def game_loop(player_map, comp_map, dummy_map, username):
     while True:
         player_hits += check_hit_player(comp_map, dummy_map, username)  
         if player_map == bsmall and player_hits == 5:
-            print("Player has won - game over")
+            print(f"Excellent work {username}, you've successfully defended the peace!")
             break
 
         elif player_map == bmed and player_hits == 7:
-            print("Player has won - game over")
+            print(f"Excellent work {username}, you've successfully defended the peace!")
             break
 
         elif player_map == blarge and player_hits == 10:
-            print("Player has won - game over")
+            print(f"Excellent work {username}, you've successfully defended the peace!")
             break
 
         comp_hits += check_hit_comp(player_map, username) 
         if comp_map == csmall and comp_hits == 5:
-            print("Computer has won - game over")
+            print("Mission failed, we'll get 'em next time!")
             break
 
         elif comp_map == cmed and comp_hits == 7:
-            print("Computer has won - game over")
+            print("Mission failed, we'll get 'em next time!")
             break 
 
         elif comp_map == clarge and comp_hits == 10:
-            print("Computer has won - game over")
+            print("Mission failed, we'll get 'em next time!")
             break 
 
 
