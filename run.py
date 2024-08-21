@@ -225,11 +225,11 @@ def check_hit_player(comp_map, dummy_map, username):
 
     except ValueError:
         print("Please enter a number!")
-        check_hit_player(comp_map, player_hits, dummy_map, username)
+        check_hit_player(comp_map, dummy_map, username)
 
     except board.Board.OutOfBoundsError:
         print("Please select a coordinate within game bounds!")
-        check_hit_player(comp_map, player_hits, dummy_map, username)
+        check_hit_player(comp_map, dummy_map, username)
 
     return impact
 
@@ -278,28 +278,28 @@ def game_loop(player_map, comp_map, dummy_map, username):
     while True:
         player_hits += check_hit_player(comp_map, dummy_map, username)  
         if player_map == bsmall and player_hits == 5:
-            print(f"Excellent work {username}, you've successfully defended the peace!")
+            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
             break
 
         elif player_map == bmed and player_hits == 7:
-            print(f"Excellent work {username}, you've successfully defended the peace!")
+            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
             break
 
         elif player_map == blarge and player_hits == 10:
-            print(f"Excellent work {username}, you've successfully defended the peace!")
+            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
             break
 
         comp_hits += check_hit_comp(player_map, username) 
         if comp_map == csmall and comp_hits == 5:
-            print("Mission failed, we'll get 'em next time!")
+            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
             break
 
         elif comp_map == cmed and comp_hits == 7:
-            print("Mission failed, we'll get 'em next time!")
+            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
             break 
 
         elif comp_map == clarge and comp_hits == 10:
-            print("Mission failed, we'll get 'em next time!")
+            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
             break 
 
 def game_restart():
