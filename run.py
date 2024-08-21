@@ -267,6 +267,23 @@ def check_hit_comp(player_map, username):
 
     return impact
 
+def game_loop(player_map, comp_map, dummy_map, username):
+    
+    player_hits = 0
+    comp_hits = 0
+
+    while True:
+        player_hits += check_hit_player(comp_map, dummy_map, username)  
+        if player_hits == 1:
+            print("Player has won - game over")
+            break
+
+        comp_hits += check_hit_comp(player_map, username)     
+        if comp_hits == 1:
+            print("Computer has won - game over")
+            break
+    
+
 def play_game():
     """
     Main game loop function incorperating all functions above with flavor text for story
@@ -317,21 +334,7 @@ def play_game():
     print("\nSquid formation assembling...\n")
     print(Fore.BLUE + "\nBEGIN THE ATTACK!\n" + Style.RESET_ALL)
 
-    player_hits = 0
-    comp_hits = 0
-
-    while True:
-        player_hits += check_hit_player(comp_map, dummy_map, username)  
-        if player_hits == 1:
-            print("Player has won - game over")
-            break
-
-        comp_hits += check_hit_comp(player_map, username)     
-        if comp_hits == 1:
-            print("Computer has won - game over")
-            break
-    
-
+    game_loop(player_map, comp_map, dummy_map, username)
 
 play_game()
 
