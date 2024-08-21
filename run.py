@@ -196,14 +196,14 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
                     break
             return comp_map
 
-def check_hit_player(comp_map, player_hits, dummy_map, username): 
+def check_hit_player(comp_map, dummy_map, username): 
     """
     Function to check if player hit on comp_board is successful
     """
 
     print (f"\n{username}'s turn to attack!\n")
     
-    player_hits = 1
+    impact = 1
 
     try:
 
@@ -215,15 +215,13 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
             print("\nEnemy board:")
             dummy_map.draw()
-            player_hits += 1
-            print(f"Hit number : {player_hits}")
 
         else:
             print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
             print("\nEnemy board:")
             dummy_map.draw()
-            player_hits = 0
+            impact = 0
 
     except ValueError:
         print("Please enter a number!")
@@ -233,17 +231,16 @@ def check_hit_player(comp_map, player_hits, dummy_map, username):
         print("Please select a coordinate within game bounds!")
         check_hit_player(comp_map, player_hits, dummy_map, username)
 
-    
-    return player_hits
+    return impact
 
-def check_hit_comp(player_map, comp_hits, username):
+def check_hit_comp(player_map, username):
     """
     Function to check if player hit on comp_board is successful
     """
 
     print("\nThe Squid are closing in...\n")
 
-    comp_hits = 1
+    impact = 1
     
     if player_map == bsmall:
         col = randrange(0,7)
@@ -257,9 +254,7 @@ def check_hit_comp(player_map, comp_hits, username):
 
     if player_map[row, col] == "B":
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
-        comp_hits += 1
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
-        print(f"Squid hits : {comp_hits}")
         print(f"\n{username}'s board:")
         player_map.draw()
 
@@ -268,9 +263,9 @@ def check_hit_comp(player_map, comp_hits, username):
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"\n{username}'s board:")
         player_map.draw()
-        comp_hits = 0
+        impact = 0
 
-    return comp_hits
+    return impact
 
 def play_game():
     """
@@ -316,7 +311,7 @@ def play_game():
             player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
 
-    print(f"\n {username} formation confirmed!")
+    print(f"\n{username} formation confirmed!")
     player_map.draw()
 
     print("\nSquid formation assembling...\n")
@@ -326,8 +321,17 @@ def play_game():
     comp_hits = 0
 
     while True:
-        check_hit_player(comp_map, player_hits, dummy_map, username)
-        check_hit_comp(player_map, comp_hits, username)
+        player_hits += check_hit_player(comp_map, dummy_map, username)  
+        if player_hits == 1:
+            print("Player has won - game over")
+            break
+
+        comp_hits += check_hit_comp(player_map, username)     
+        if comp_hits == 1:
+            print("Computer has won - game over")
+            break
+    
+
 
 play_game()
 
