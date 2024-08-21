@@ -299,8 +299,19 @@ def game_loop(player_map, comp_map, dummy_map, username):
             print("Mission failed, we'll get 'em next time!")
             break 
 
+def game_restart():
 
-    
+    restart = input("Would you like to play again? (Y/N)\n")
+        
+    if restart in ["Y", "y"]:
+            play_game()
+
+    elif restart in ["N", "n"]:
+        print("Thank you for playing!")
+
+    else :
+        print("Please enter Y/N!")
+        game_restart()
 
 def play_game():
     """
@@ -353,6 +364,8 @@ def play_game():
     print(Fore.BLUE + "\nBEGIN THE ATTACK!\n" + Style.RESET_ALL)
 
     game_loop(player_map, comp_map, dummy_map, username)
+
+    game_restart()
 
 play_game()
 
