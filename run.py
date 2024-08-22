@@ -90,8 +90,8 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
             comp_map = cmed
             dummy_map = dmed
             return player_map
-        elif map_size in ["L", "l"]:
 
+        elif map_size in ["L", "l"]:
             print("\nLarge map selected - 10 ships\n")
             blarge.draw()
             player_map = blarge
@@ -169,18 +169,18 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
         if comp_map == csmall:
             for ship in ships:
                 while True: 
-                    row = randrange(0, 7) not in c_occupied
-                    col = randrange(0, 7) not in c_occupied
+                    row = randrange(0, 7)
+                    col = randrange(0, 7)
                     csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
-            return comp_map,
+            return comp_map
 
         elif comp_map == cmed:
             for ship in ships:
                 while True: 
-                    row = randrange(0, 9) not in c_occupied
-                    col = randrange(0, 9) not in c_occupied
+                    row = randrange(0, 9) 
+                    col = randrange(0, 9) 
                     cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
@@ -189,8 +189,8 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
         elif comp_map == clarge:
             for ship in ships:
                 while True: 
-                    row = randrange(0,11) not in c_occupied
-                    col = randrange(0,11) not in c_occupied
+                    row = randrange(0, 11) 
+                    col = randrange(0, 11) 
                     clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
