@@ -278,28 +278,28 @@ def game_loop(player_map, comp_map, dummy_map, username):
     while True:
         player_hits += check_hit_player(comp_map, dummy_map, username)  
         if player_map == bsmall and player_hits == 5:
-            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
+            print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
 
         elif player_map == bmed and player_hits == 7:
-            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
+            print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
 
         elif player_map == blarge and player_hits == 10:
-            print(Fore.GREEN + f"Excellent work {username}, you've successfully defended the peace!" + Style.RESET_ALL)
+            print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
 
         comp_hits += check_hit_comp(player_map, username) 
         if comp_map == csmall and comp_hits == 5:
-            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
+            print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
             break
 
         elif comp_map == cmed and comp_hits == 7:
-            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
+            print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
             break 
 
         elif comp_map == clarge and comp_hits == 10:
-            print(Fore.RED + "Mission failed, we'll get 'em next time!" + Style.RESET_ALL)
+            print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
             break 
 
 def game_restart():
@@ -307,7 +307,7 @@ def game_restart():
     Function to prompt user to play again or break loop
     """
 
-    restart = input("Would you like to play again? (Y/N)\n")
+    restart = input("\nWould you like to play again? (Y/N)\n")
         
     if restart in ["Y", "y"]:
             play_game()
