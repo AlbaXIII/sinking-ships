@@ -1,1 +1,2 @@
-# Your requirements go here
+board==1.0
+colorama==0.4.6

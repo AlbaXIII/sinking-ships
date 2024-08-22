@@ -108,8 +108,8 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
     """
 
     while True:
-        
-        if player_map == bsmall: 
+
+        if player_map == bsmall:
             try:
                 col = int(input("\nPlease select column: ")) 
                 row = int(input("Please select row: "))
@@ -227,7 +227,7 @@ def check_hit_player(comp_map, dummy_map, username):
         print("Please enter a number!")
         check_hit_player(comp_map, dummy_map, username)
 
-    except board.Board.OutOfBoundsError:
+    except board.Board.OutOfBoundsError: 
         print("Please select a coordinate within game bounds!")
         check_hit_player(comp_map, dummy_map, username)
 
@@ -243,25 +243,25 @@ def check_hit_comp(player_map, username):
     impact = 1
     
     if player_map == bsmall:
-        col = randrange(0,7)
-        row = randrange(0,7)
+        col = randrange(0, 7)
+        row = randrange(0, 7)
     elif player_map == bmed:
-        col = randrange(0,9)
-        row = randrange(0,9)
+        col = randrange(0, 9)
+        row = randrange(0, 9)
     elif player_map == blarge:
-        col = randrange(0,11)
-        row = randrange(0,11)
+        col = randrange(0, 11)
+        row = randrange(0, 11)
 
     if player_map[row, col] == "B":
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
-        print(f"\n{username}'s board:")
+        print(f"\n{username}'s board: ")
         player_map.draw()
 
     else:
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
-        print(f"\n{username}'s board:")
+        print(f"\n{username}'s board: ")
         player_map.draw()
         impact = 0
 
@@ -315,7 +315,7 @@ def game_restart():
     elif restart in ["N", "n"]:
         print("Thank you for playing!")
 
-    else :
+    else:
         print("Please enter Y/N!")
         game_restart()
 
@@ -374,10 +374,4 @@ def play_game():
     game_restart()
 
 play_game()
-
-
-
-        
-
-
 
