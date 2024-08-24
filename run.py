@@ -230,7 +230,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         col = int(input("Enter your attack column: "))
         row = int(input("Enter your attack row: "))
 
-        if comp_map[col, row] == ships:
+        if comp_map[col, row] == "B":
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
             print("\nEnemy board:")
