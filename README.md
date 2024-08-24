@@ -30,28 +30,44 @@ The scope of user for a program like this is very wide - it is hopefully a diver
 
 When first running the program, the first function is to record the players username. This function is in place to increase familiarity with the game and for future text prompts to have a personal touch to them, as well as providing the first instance of input validation in the codebase.
 
+![Username function image](readme-images/username-function.PNG)
+
 - **Map size & board**
 
-There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by a anterior function that populates each 'cell' of the board with the tilde key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling to visually empty.
-To differentiate between the boards, the computer board is populated by the dash symbol. This is to help the user know which board is being shown, especially important on the smaller display afforded by the Heroku app.
+There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by a anterior function that populates each 'cell' of the board with the tilde ("~") key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling to visually empty.
+
+![User board display](readme-images/board-display.PNG)
+
+To differentiate between the boards, the computer board is populated by the dash ("-") symbol. This is to help the user know which board is being shown, especially important on the smaller display afforded by the Heroku app.
 
 -**Ship placement**
 
 The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string.
 
+![Player coordination input](readme-images/player-coords.PNG)
+
 Once selected, the user can see the end result of their formation choice. The aim here was for the board to be called immediately to give an optical reminder to the player and keep the flow of information coming.
 
+![Player board display with ships input](readme-images/player-board.PNG)
+
 The application will then populate the computers map with a function that uses Python3's built-in random interger generator to initialise two random numbers, which is then used to populate the computer board. At the same time, there is a dummy board being generated and populated in the same cells, which is used to give a visual for the players attacks without revealing the location of the computers other ships.
+
 
 - **Attacking & game loop**
 
 The game will then prompt the user for the first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. 
 
+
+
 Concurrently the computer attack function will check for a hit on the player board, again utilising the randrange function to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
 
 Misses are displayed on the board as a O symbol. This is a point of differentiation so the player can determine the state of their board and from there be able to make an informed decision on where to attack next.
 
+![Computer hit image](readme-images/enemy-attack-success.PNG)
+
 When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beggining another play loop.
+
+![Loss message image](readme-images/loss-message.PNG)
 
 ## Future features
 
@@ -71,13 +87,23 @@ Following on from ship variants, the multi-celled ships will have the ability to
 
 ### Validation
 
-- **Username validation**
+**Username validation**
 
-- **Map size validation**
+![Username validation image](readme-images/username-validation.png)
 
-- **Player coordination validation**
+**Map size validation**
 
-- **Player attack validation**
+![Map size validation image](readme-images/map-size-validation.PNG)
+
+**Player coordination validation**
+
+![Player coordinates validation image](readme-images/player-coord-validation.PNG)
+
+**Player attack validation**
+
+![Player attack validation image](readme-images/player-attack-validation.PNG)
+
+![Player repeat coordinates image](readme-images/player-repeat-validation.PNG)
 
 ### PEP8 (Pycodestyle)
 

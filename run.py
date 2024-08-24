@@ -236,7 +236,6 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             print("\nEnemy board:")
             dummy_map.draw()
             attempts.append((col, row))
-            print(attempts)
 
         elif ((col, row)) in attempts:
             print(Fore.BLUE + "Please select new coordinates!" + Style.RESET_ALL)
