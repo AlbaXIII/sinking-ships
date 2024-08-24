@@ -205,7 +205,7 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
                     break
             return comp_map
 
-def check_hit_player(comp_map, dummy_map, username): 
+def check_hit_player(comp_map, dummy_map, username, attempts): 
     """
     Function to check if player hit on comp_board is successful
     """
@@ -219,26 +219,33 @@ def check_hit_player(comp_map, dummy_map, username):
         col = int(input("Enter your attack column: "))
         row = int(input("Enter your attack row: "))
 
-        if comp_map[col, row] == "B":
+        if comp_map[col, row] == ships:
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
             print("\nEnemy board:")
             dummy_map.draw()
+            attempts.append((col, row))
+            print(attempts)
+
+        elif ((col, row)) in attempts:
+            print(Fore.BLUE + "Please select new coordinates!" + Style.RESET_ALL)
+            check_hit_player(comp_map, dummy_map, username, attempts)
 
         else:
             print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
             print("\nEnemy board:")
             dummy_map.draw()
+            attempts.append((col, row))
             impact = 0
 
     except ValueError:
         print("Please enter a number!")
-        check_hit_player(comp_map, dummy_map, username)
+        check_hit_player(comp_map, dummy_map, username, attempts)
 
     except board.Board.OutOfBoundsError: 
         print("Please select a coordinate within game bounds!")
-        check_hit_player(comp_map, dummy_map, username)
+        check_hit_player(comp_map, dummy_map, username, attempts)
 
     return impact
 
@@ -276,7 +283,7 @@ def check_hit_comp(player_map, username):
 
     return impact
 
-def game_loop(player_map, comp_map, dummy_map, username):
+def game_loop(player_map, comp_map, dummy_map, username, attempts):
     """
     Function to loop player & computer attacks until winner
     """
@@ -285,7 +292,7 @@ def game_loop(player_map, comp_map, dummy_map, username):
     comp_hits = 0
 
     while True:
-        player_hits += check_hit_player(comp_map, dummy_map, username)  
+        player_hits += check_hit_player(comp_map, dummy_map, username, attempts)  
         if player_map == bsmall and player_hits == 5:
             print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
@@ -378,7 +385,9 @@ def play_game():
     print("\nSquid formation assembling...\n")
     print(Fore.BLUE + "\nBEGIN THE ATTACK!\n" + Style.RESET_ALL)
 
-    game_loop(player_map, comp_map, dummy_map, username)
+    attempts = []
+
+    game_loop(player_map, comp_map, dummy_map, username, attempts)
 
     game_restart()
 
