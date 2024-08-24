@@ -171,7 +171,10 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
                 while True: 
                     row = randrange(0, 7)
                     col = randrange(0, 7)
-                    csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    if ((row, col)) in c_occupied:
+                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
+                    else: 
+                        csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
             return comp_map
@@ -181,7 +184,10 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
                 while True: 
                     row = randrange(0, 9) 
                     col = randrange(0, 9) 
-                    cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
+                    if ((row, col)) in c_occupied:
+                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
+                    else:
+                        cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
             return comp_map
@@ -190,8 +196,11 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
             for ship in ships:
                 while True: 
                     row = randrange(0, 11) 
-                    col = randrange(0, 11) 
-                    clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
+                    col = randrange(0, 11)
+                    if ((row, col)) in c_occupied:
+                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
+                    else:
+                        clarge.populate(ships, clarge.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
             return comp_map
