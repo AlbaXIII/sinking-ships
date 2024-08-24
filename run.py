@@ -7,23 +7,29 @@ ships = ["B"]
 hit = ["X"]
 miss = ["O"]
 
+
 def bsea():
     """
     function to fill empty board with 'sea' icons for user board
     """
-    import random, string
+    import random
+    import string
     while True:
         yield random.choice("~")
+
 
 def csea():
     """
     function to fill empty board with 'sea' icons for computer and dummy board
     """
-    import random, string
+    import random
+    import string
     while True:
         yield random.choice("-")
 
 # define small/medium/large user boards & populate grid with bsea background
+
+
 bsmall = board.Board((8, 8))
 bsmall.populate(bsea())
 
@@ -33,7 +39,7 @@ bmed.populate(bsea())
 blarge = board.Board((12, 12))
 blarge.populate(bsea())
 
-# define small/medium/large computer boards & populate grid with csea background
+# define computer board size & populate grid with csea background
 csmall = board.Board((8, 8))
 csmall.populate(csea())
 
@@ -44,7 +50,7 @@ clarge = board.Board((12, 12))
 clarge.populate(csea())
 
 # define small/medium/large dummy boards & populate grid with csea background
-# dummy board for visual indication of user attack without showing comp ship positions
+# dummy board for visual of user attack without showing comp ship positions
 dsmall = board.Board((8, 8))
 dsmall.populate(csea())
 
@@ -53,6 +59,7 @@ dmed.populate(csea())
 
 dlarge = board.Board((12, 12))
 dlarge.populate(csea())
+
 
 def create_user():
     """
@@ -66,6 +73,7 @@ def create_user():
             return username
         else:
             print("I can't hear you! Try again.")
+
 
 def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge):
     """
@@ -102,6 +110,7 @@ def choose_map(bsmall, bmed, blarge, csmall, cmed, clarge, dsmall, dmed, dlarge)
         else:
             print("What! Please select S/M/L")
 
+
 def player_coords(player_map, bsmall, bmed, blarge, occupied):
     """
     Function for selection of ship placement on user board
@@ -111,7 +120,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
 
         if player_map == bsmall:
             try:
-                col = int(input("\nPlease select column: ")) 
+                col = int(input("\nPlease select column: "))
                 row = int(input("Please select row: "))
                 if 0 <= row < 8 and 0 <= col < 8 and (row, col) not in occupied:
                     bsmall.populate(ships, bsmall.iterline((row, col), (1, 0)))
@@ -124,10 +133,10 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
                 print("Invalid input! Please enter a number!")
                 player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
-        
+
         elif player_map == bmed:
             try:
-                row = int(input("\nPlease select column: ")) 
+                row = int(input("\nPlease select column: "))
                 col = int(input("Please select row: "))
                 if 0 <= row < 10 and 0 <= col < 10 and (row, col) not in occupied:
                     bmed.populate(ships, bmed.iterline((row, col), (1, 0)))
@@ -143,7 +152,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
 
         elif player_map == blarge:
             try:
-                row = int(input("\nPlease select column: ")) 
+                row = int(input("\nPlease select column: "))
                 col = int(input("Please select row: "))
                 if 0 <= row < 12 and 0 <= col < 12 and (row, col) not in occupied:
                     blarge.populate(ships, blarge.iterline((row, col), (1, 0)))
@@ -159,6 +168,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
 
     return player_map, occupied
 
+
 def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
     """
     Function for computer ship placement on all board sizes
@@ -168,12 +178,12 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
 
         if comp_map == csmall:
             for ship in ships:
-                while True: 
+                while True:
                     row = randrange(0, 7)
                     col = randrange(0, 7)
                     if ((row, col)) in c_occupied:
                         comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
-                    else: 
+                    else:
                         csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
                     break
@@ -181,9 +191,9 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
 
         elif comp_map == cmed:
             for ship in ships:
-                while True: 
-                    row = randrange(0, 9) 
-                    col = randrange(0, 9) 
+                while True:
+                    row = randrange(0, 9)
+                    col = randrange(0, 9)
                     if ((row, col)) in c_occupied:
                         comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
                     else:
@@ -194,8 +204,8 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
 
         elif comp_map == clarge:
             for ship in ships:
-                while True: 
-                    row = randrange(0, 11) 
+                while True:
+                    row = randrange(0, 11)
                     col = randrange(0, 11)
                     if ((row, col)) in c_occupied:
                         comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
@@ -205,13 +215,14 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
                     break
             return comp_map
 
-def check_hit_player(comp_map, dummy_map, username, attempts): 
+
+def check_hit_player(comp_map, dummy_map, username, attempts):
     """
     Function to check if player hit on comp_board is successful
     """
 
-    print (f"\n{username}'s turn to attack!\n")
-    
+    print(f"\n{username}'s turn to attack!\n")
+
     impact = 1
 
     try:
@@ -243,11 +254,12 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         print("Please enter a number!")
         check_hit_player(comp_map, dummy_map, username, attempts)
 
-    except board.Board.OutOfBoundsError: 
+    except board.Board.OutOfBoundsError:
         print("Please select a coordinate within game bounds!")
         check_hit_player(comp_map, dummy_map, username, attempts)
 
     return impact
+
 
 def check_hit_comp(player_map, username):
     """
@@ -257,7 +269,7 @@ def check_hit_comp(player_map, username):
     print("\nThe Squid are closing in...\n")
 
     impact = 1
-    
+
     if player_map == bsmall:
         col = randrange(0, 7)
         row = randrange(0, 7)
@@ -283,6 +295,7 @@ def check_hit_comp(player_map, username):
 
     return impact
 
+
 def game_loop(player_map, comp_map, dummy_map, username, attempts):
     """
     Function to loop player & computer attacks until winner
@@ -292,7 +305,7 @@ def game_loop(player_map, comp_map, dummy_map, username, attempts):
     comp_hits = 0
 
     while True:
-        player_hits += check_hit_player(comp_map, dummy_map, username, attempts)  
+        player_hits += check_hit_player(comp_map, dummy_map, username, attempts)
         if player_map == bsmall and player_hits == 5:
             print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
@@ -305,18 +318,19 @@ def game_loop(player_map, comp_map, dummy_map, username, attempts):
             print(Fore.GREEN + f"\nExcellent work {username}, you've successfully defended the peace!\n" + Style.RESET_ALL)
             break
 
-        comp_hits += check_hit_comp(player_map, username) 
+        comp_hits += check_hit_comp(player_map, username)
         if comp_map == csmall and comp_hits == 5:
             print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
             break
 
         elif comp_map == cmed and comp_hits == 7:
             print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
-            break 
+            break
 
         elif comp_map == clarge and comp_hits == 10:
             print(Fore.RED + "\nMission failed, we'll get 'em next time!\n" + Style.RESET_ALL)
-            break 
+            break
+
 
 def game_restart():
     """
@@ -324,9 +338,9 @@ def game_restart():
     """
 
     restart = input("\nWould you like to play again? (Y/N)\n")
-        
+
     if restart in ["Y", "y"]:
-            play_game()
+        play_game()
 
     elif restart in ["N", "n"]:
         print("Thank you for playing!")
@@ -334,6 +348,7 @@ def game_restart():
     else:
         print("Please enter Y/N!")
         game_restart()
+
 
 def play_game():
     """
@@ -363,19 +378,19 @@ def play_game():
     if player_map == bsmall:
         comp_map = csmall
         dummy_map = dsmall
-        for x in range (0, 5):
+        for x in range(0, 5):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
-        for x in range (0, 7):
+        for x in range(0, 7):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
-        for x in range (0, 10):
+        for x in range(0, 10):
             player_coords(player_map, bsmall, bmed, blarge, occupied)
             comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
 
@@ -391,5 +406,5 @@ def play_game():
 
     game_restart()
 
-play_game()
 
+play_game()
