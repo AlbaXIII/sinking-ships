@@ -6,7 +6,7 @@ Sinking ships is a command-line Python3 game of strategy (and more than a bit of
 
 Based primarily on the classic pen-and-paper game Battleships, Sinking Ships takes further inspiration from the eponymous 'Sinking Ships' mini-game in the 2002 video game Legend of Zelda - Wind Waker, where the player must locate and eliminate enemy squid before they have the chance to wreack havoc. The setting of the minigame combined with the mechanism of battleships is what constitutes Sinking Ships - a casual game with a humerous edge for anyone to while away a few minutes on.
 
-Zee fiends approach!
+**Zee fiends approach!**
 
 ---
 
@@ -16,7 +16,7 @@ Zee fiends approach!
 2. Enter your username when prompted.
 3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here.
 4. Check over your board, and use the prompt to position your ships by using columns and rows - ships are signified by the string "B" - and see the result of your board when finished.
-5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding unit of the board.
+5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding unit of the board. Misses are marked by a "O", and a hit by an "X"!
 6. When all of your opponents squid are sunk, or your own ships, you win or lose!
 7. Play again or quit the game.
 
@@ -71,6 +71,13 @@ Following on from ship variants, the multi-celled ships will have the ability to
 
 ### Validation
 
+- **Username validation**
+
+- **Map size validation**
+
+- **Player coordination validation**
+
+- **Player attack validation**
 
 ### PEP8 (Pycodestyle)
 
@@ -90,6 +97,10 @@ Following on from ship variants, the multi-celled ships will have the ability to
 ## Bugs
 
 # Development
+
+- Colorama and board 
+
+- Occupied array
 
 # Unfixed Bugs
 
