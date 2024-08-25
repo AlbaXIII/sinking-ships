@@ -231,7 +231,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     return impact
 
 
-def check_hit_comp(player_map, username, maxcol, maxrow):
+def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     """
     Function to check if player hit on comp_board is successful
     """
@@ -249,8 +249,12 @@ def check_hit_comp(player_map, username, maxcol, maxrow):
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
+        c_attempts.append((col, row))
         # Display player board
         player_map.draw()
+
+    elif ((col, row)) in c_attempts:
+        check_hit_comp(player_map, username, maxcol, maxrow, c_attempts)
 
     else:
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
@@ -258,6 +262,7 @@ def check_hit_comp(player_map, username, maxcol, maxrow):
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         player_map.draw()
+        c_attempts.append((col, row))
         impact = 0
 
     return impact
@@ -265,8 +270,8 @@ def check_hit_comp(player_map, username, maxcol, maxrow):
 
 def game_loop(
         player_map, comp_map, dummy_map,
-        username, attempts, win,
-        maxcol, maxrow):
+        username, attempts, c_attempts,
+        win, maxcol, maxrow):
     """
     Function to loop player & computer attacks until winner
     """
@@ -286,7 +291,7 @@ def game_loop(
             break
 
         # Add up return from computer check hit function for winning score
-        comp_hits += check_hit_comp(player_map, username, maxcol, maxrow)
+        comp_hits += check_hit_comp(player_map, username, maxcol, maxrow, c_attempts)
         if comp_hits == win:
             print(
                 Fore.RED +
@@ -390,11 +395,12 @@ def play_game():
     print(Fore.BLUE + "\nBEGIN THE ATTACK!\n" + Style.RESET_ALL)
     # Initialise attempts array
     attempts = []
+    c_attempts = []
     # Main game loop call
     game_loop(
         player_map, comp_map, dummy_map,
-        username, attempts, win,
-        maxcol, maxrow)
+        username, attempts, c_attempts,
+        win, maxcol, maxrow)
     # Restart game when winnner
     game_restart()
 
