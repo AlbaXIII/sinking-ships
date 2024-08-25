@@ -276,7 +276,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             print(attempts)
 
         elif ((col, row)) in attempts:
-            print(Fore.BLUE + "Please select new coordinates!" + Style.RESET_ALL)
+            print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
             # Loop function if user input already used
             check_hit_player(comp_map, dummy_map, username, attempts)
 
