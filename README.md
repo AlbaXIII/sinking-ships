@@ -184,9 +184,13 @@ This was because I had included the check of the set in the population check sec
                         csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
 
+- XXXXXXXXXXXXXX
+
 ### **Unfixed Bugs**
 
-CONDENSE
+- BOARD XXXXXXXXXXXXXXXXXXXXXXXXX
+
+- Computer attempts
 
 ## **Deployment**
 

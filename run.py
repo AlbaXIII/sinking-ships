@@ -1,6 +1,6 @@
 from colorama import Fore, Back, Style
 import board
-from random import randrange
+from random import randrange, randint
 
 # define ship and hit icons for visual indicator on maps
 ships = ["B"]
@@ -150,6 +150,9 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
                 Fore.RED +
                 "Invalid input! Please enter a number!" +
                 Style.RESET_ALL)
+            player_coords(
+                player_map, bsmall, bmed, blarge,
+                occupied, maxcol, maxrow)
         break
 
     return player_map, occupied
@@ -191,7 +194,13 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         col = int(input("Enter your attack column: "))
         row = int(input("Enter your attack row: "))
 
-        if comp_map[col, row] == "B":
+        if ((col, row)) in attempts:
+            # Check if in attempts array before hit check
+            print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
+            check_hit_player(comp_map, dummy_map, username, attempts)
+            impact = 0
+
+        elif comp_map[col, row] == "B":
             # Hit message for successful attack, using Colorama
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             # Print attack to dummy board for user visual
@@ -201,11 +210,6 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             dummy_map.draw()
             # Add chosen integers to attempts array
             attempts.append((col, row))
-
-        elif ((col, row)) in attempts:
-            print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
-            # Loop function if user input already used
-            check_hit_player(comp_map, dummy_map, username, attempts)
 
         else:
             # Miss message for unsuccessful attack
@@ -221,12 +225,16 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         # Validation for non-integer input
         print(Fore.RED + "Please enter a number!" + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
+        impact = 0
         # Specific error for board out of bounds integers
     except board.Board.OutOfBoundsError:
         print(
             Fore.RED + "Please select a coordinate within game bounds!"
             + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
+        impact = 0
+
+    print(attempts)
 
     return impact
 
@@ -236,34 +244,33 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     Function to check if player hit on comp_board is successful
     """
 
-    print("\nThe Squid are closing in...\n")
-    # Same as player attack, hit by default
+    # Same as player attack, assume hit by default
     impact = 1
-    # Random integers called for attack on player board within maxcol/row
 
+    # Random integers called for attack on player board within maxcol/row
     col = randrange(0, maxcol)
     row = randrange(0, maxrow)
+
+    c_attempts.append((col, row))
 
     if player_map[row, col] == "B":
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
-        c_attempts.append((col, row))
         # Display player board
         player_map.draw()
 
-    elif ((col, row)) in c_attempts:
-        check_hit_comp(player_map, username, maxcol, maxrow, c_attempts)
-
     else:
+        player_map[row, col] == "~"
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         player_map.draw()
-        c_attempts.append((col, row))
         impact = 0
+
+    print(c_attempts)
 
     return impact
 
@@ -283,6 +290,7 @@ def game_loop(
         # Add up return from check hit function for winning score
         player_hits += check_hit_player(
             comp_map, dummy_map, username, attempts)
+        print(player_hits)
         if player_hits == win:
             print(
                 Fore.GREEN +
@@ -291,7 +299,9 @@ def game_loop(
             break
 
         # Add up return from computer check hit function for winning score
-        comp_hits += check_hit_comp(player_map, username, maxcol, maxrow, c_attempts)
+        comp_hits += check_hit_comp(
+            player_map, username, maxcol, maxrow, c_attempts)
+        print(comp_hits)
         if comp_hits == win:
             print(
                 Fore.RED +
@@ -349,8 +359,8 @@ def play_game():
     if player_map == bsmall:
         comp_map = csmall
         dummy_map = dsmall
-        maxcol = 4
-        maxrow = 4
+        maxcol = 5
+        maxrow = 5
         win = 5
         # For loop to apply function for as many ships
         for x in range(0, 5):
@@ -363,8 +373,8 @@ def play_game():
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
-        maxcol = 6
-        maxrow = 6
+        maxcol = 7
+        maxrow = 7
         win = 7
         for x in range(0, 7):
             player_coords(
@@ -376,8 +386,8 @@ def play_game():
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
-        maxcol = 8
-        maxrow = 8
+        maxcol = 9
+        maxrow = 9
         win = 10
         for x in range(0, 10):
             player_coords(
