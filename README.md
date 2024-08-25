@@ -10,7 +10,7 @@ Based primarily on the classic pen-and-paper game Battleships, Sinking Ships tak
 
 ---
 
-## How to play
+## **How to play**
 
 1. Run the program from the host site on Heroku.
 2. Enter your username when prompted.
@@ -20,17 +20,19 @@ Based primarily on the classic pen-and-paper game Battleships, Sinking Ships tak
 6. When all of your opponents squid are sunk, or your own ships, you win or lose!
 7. Play again or quit the game.
 
-## Target users
+## **Target users**
 
 The scope of user for a program like this is very wide - it is hopefully a diversionary bit of software for anyone to enjoy, but will most likely be most enjoyed by a user with a background in coding.
 
-## Features and functions
+## **Features and functions**
 
 - **Username** 
 
 When first running the program, the first function is to record the players username. This function is in place to increase familiarity with the game and for future text prompts to have a personal touch to them, as well as providing the first instance of input validation in the codebase.
 
 ![Username function image](readme-images/username-function.PNG)
+
+After the username is entered, flavor text will describe the "setting" of the game - giving the game a humerous edge and establishing some very minor worldbuilding, as well as providing a reference to millenials such as myself who remember the original game.
 
 - **Map size & board**
 
@@ -57,7 +59,7 @@ The application will then populate the computers map with a function that uses P
 
 The game will then prompt the user for the first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. 
 
-
+![Player hit image](readme-images/player-attack-success.PNG)
 
 Concurrently the computer attack function will check for a hit on the player board, again utilising the randrange function to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
 
@@ -69,7 +71,13 @@ When the game is completed, the player will be presented with an option to eithe
 
 ![Loss message image](readme-images/loss-message.PNG)
 
-## Future features
+## **Methodology**
+
+
+
+
+
+## **Future features**
 
 - **Colored boards**
 
@@ -83,9 +91,13 @@ Further versions of the game will give the user an ability to have an array of m
 
 Following on from ship variants, the multi-celled ships will have the ability to be placed diagonally and not just on a x or y-axis.
 
-## Testing
+- **Wider board**
 
-### Validation
+In providing the option for multiple board sizes, the game naturally incurs a lot of scrolling. In future releases the project would look to have the boards expand out horizontally to alleviate this aspect.
+
+## **Testing**
+
+### **Validation**
 
 **Username validation**
 
@@ -105,11 +117,15 @@ Following on from ship variants, the multi-celled ships will have the ability to
 
 ![Player repeat coordinates image](readme-images/player-repeat-validation.PNG)
 
-### PEP8 (Pycodestyle)
+### **PEP8 (Pycodestyle)**
+
+No major issues presented using PEP8/Pycodestyle.
 
 
 
-## Technology and additional software used
+
+
+## **Technology and additional software used**
 - Python3
     - [random](https://docs.python.org/3/library/random.html)
         - Random.randrange function used to generate random coordinates for placement of enemy ships on computer board.
@@ -120,17 +136,35 @@ Following on from ship variants, the multi-celled ships will have the ability to
     - [PEP8 (aka pycodestyle)](https://peps.python.org/pep-0008/)
         - Main linter used to list any abnormalities in code structure and layout.
         
-## Bugs
+## **Bugs**
 
-# Development
+### **Development**
 
-- Colorama and board 
+- When starting the initialisation process for the game boards, the original idea was to have them populated by colored icons using the colorama package. However when using the syntax utilised elsewhere in the project for one-off color bursts;
 
-- Occupied array
+    (Fore.BLUE + "~" + Style.RESET_ALL)
 
-# Unfixed Bugs
+    The board would throw up a lot of character errors;
 
-## Deployment
+![Map errors image](readme-images/map-errors.PNG)
+
+
+- In the player coordinate function, there is a subroutine to add the columns and rows selected to a set that is initialised in the main game function. However, when applying the same logic to the computer coordinates (to stop it from generating the same sets and populating the board over itself) the syntax used was causing the randrange element of the function to return the same numbers every time (1, 1)
+This was because I had included the check of the set in the population check section of the code, causing the generation to return the same numbers. Reworking the function to simplify the check fixed the error and allowed the generator to start returning random integers again;
+
+                    row = randrange(0, 7)
+                    col = randrange(0, 7)
+                    if ((row, col)) in c_occupied:
+                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
+                    else:
+                        csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
+                    c_occupied.add((row, col))
+
+### **Unfixed Bugs**
+
+CONDENSE
+
+## **Deployment**
 
 Application was created in Gitpod Code IDE and hosted on [Heroku](https://sinking-ships-ec79824176fc.herokuapp.com/).
 The process for deployment is listed below;
@@ -146,10 +180,11 @@ The process for deployment is listed below;
 9. Click deploy -> main branch from **manual deployment** section.
 10. Once successfully deployed, click **view app**.
 
-## Credits
+## **Credits**
 
-- As always many thanks to my mentor Dick Vlandaaren.
+- As always many thanks to my mentor Dick Vlandaaren for the patience, and words of wisdom. This project was difficult for me to get my head around, but the advice was always excellent, if not my ability to follow through on it.
 - Inspiration taken from Sinking Ships in the [Legend of Zelda : The Wind Waker](https://www.zeldadungeon.net/wiki/Sinking_Ships). 
+- Research and structural inspiration from similar projects from [Stack Overflow](https://stackoverflow.com/questions/77575338/battleship-project-with-python) and [Code Academy](https://discuss.codecademy.com/t/excellent-battleship-game-written-in-python/430605)
 
 
 
