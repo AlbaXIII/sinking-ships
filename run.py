@@ -88,7 +88,7 @@ def choose_map(
 
         map_size = input("Please choose a map size - [S/M/L]\n")
         if map_size in ["S", "s"]:
-            print("\nSmall map selected - 5 ships\n")
+            print("\nSmall map selected - 5 ships (Range 0-4)\n")
             bsmall.draw()
             player_map = bsmall
             comp_map = csmall
@@ -97,7 +97,7 @@ def choose_map(
             return comp_map
 
         elif map_size in ["M", "m"]:
-            print("\nMedium map selected - 7 ships\n")
+            print("\nMedium map selected - 7 ships (Range 0-6)\n")
             bmed.draw()
             player_map = bmed
             comp_map = cmed
@@ -106,7 +106,7 @@ def choose_map(
             return comp_map
 
         elif map_size in ["L", "l"]:
-            print("\nLarge map selected - 10 ships\n")
+            print("\nLarge map selected - 10 ships (Range 0-9)\n")
             blarge.draw()
             player_map = blarge
             comp_map = clarge
@@ -234,8 +234,6 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         check_hit_player(comp_map, dummy_map, username, attempts)
         impact = 0
 
-    print(attempts)
-
     return impact
 
 
@@ -251,8 +249,6 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     col = randrange(0, maxcol)
     row = randrange(0, maxrow)
 
-    c_attempts.append((col, row))
-
     if player_map[row, col] == "B":
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
@@ -262,15 +258,12 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
         player_map.draw()
 
     else:
-        player_map[row, col] == "~"
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         player_map.draw()
         impact = 0
-
-    print(c_attempts)
 
     return impact
 
