@@ -27,9 +27,8 @@ def csea():
     while True:
         yield random.choice("-")
 
+
 # define small/medium/large user boards & populate grid with bsea background
-
-
 bsmall = board.Board((5, 5))
 bsmall.populate(bsea())
 
@@ -123,7 +122,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
     """
     Function for selection of ship placement on user board
     """
-
+    # Place player coords within maxcol/row parameters
     while True:
         try:
             col = int(input("Please select column: "))
@@ -134,8 +133,9 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
                     not in occupied:
                 player_map.populate(
                     ships, player_map.iterline((row, col), (1, 0)))
+                # Add to occupied set to avoid repetition
                 occupied.add((row, col))
-
+            # Validation for coordinates out of bounds
             else:
                 print(
                     Fore.RED +
@@ -144,7 +144,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
                 player_coords(
                     player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
                 break
-
+        # Validation for invalid data types
         except ValueError:
             print(
                 Fore.RED +
@@ -159,7 +159,7 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow):
     """
     Function for computer ship placement on all board sizes
     """
-
+    # Random integer range defined by maxcol/row
     while True:
         for ship in ships:
             col = randrange(0, maxcol)
@@ -167,9 +167,11 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow):
             if ((row, col)) in c_occupied:
                 comp_coords(
                     comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
+            # Populate map with ships
             else:
                 comp_map.populate(
                     ships, comp_map.iterline((row, col), (1, 0)))
+                # Add to computer occupied set
                 c_occupied.add((row, col))
                 break
         return comp_map
@@ -237,7 +239,7 @@ def check_hit_comp(player_map, username, maxcol, maxrow):
     print("\nThe Squid are closing in...\n")
     # Same as player attack, hit by default
     impact = 1
-    # Random integers called for attack on player board
+    # Random integers called for attack on player board within maxcol/row
 
     col = randrange(0, maxcol)
     row = randrange(0, maxrow)
@@ -338,7 +340,7 @@ def play_game():
     c_occupied = set()
 
     print("\nPlease select coordinates for your ships!\n")
-    # If block to match map sizes
+    # If block to match map sizes & declare maxcol/row and win threshold
     if player_map == bsmall:
         comp_map = csmall
         dummy_map = dsmall
@@ -381,6 +383,7 @@ def play_game():
                 c_occupied, maxcol, maxrow)
 
     print(f"\n{username} formation confirmed!")
+    # Formation review for player
     player_map.draw()
 
     print("\nSquid formation assembling...\n")
