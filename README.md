@@ -42,7 +42,7 @@ There are 3 sizes of map to select, with each increase in size providing more sh
 
 To differentiate between the boards, the computer board is populated by the dash ("-") symbol. This is to help the user know which board is being shown, especially important on the smaller display afforded by the Heroku app.
 
--**Ship placement**
+- **Ship placement**
 
 The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string.
 
@@ -77,7 +77,17 @@ When the game is completed, the player will be presented with an option to eithe
 
 ![Function lucid chart map](readme-images/function-map.webp)
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+The first step of development of this project was to map out the functions that I believed would be needed to create a game with the scope detailed by the project outline.
+
+With that in mind, the decision was taken early on to utilise the board package to simplify the process of designing the maps, and to provide them with a visual fidelity that I though would work well for the user.
+
+To that end, the boards are declared at the top of the code as global variables to be passed around through multiple functions. Three sets of three were needed for the user, opponent, and a visual dummy board to give ocular feedback to the user for hits or misses.
+
+The functions are then roughly divided into initial user input and game loop, with initial user input for username & placement of ships, and game loop handling the attacking of the computer board.
+
+Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, , arrays managing occupied cells/attempts and the win threshold.
+
+When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lions share of the project is laid out in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
 
 ## **Future features**
 
