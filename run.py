@@ -121,83 +121,41 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
     Function for selection of ship placement on user board
     """
 
+    if player_map == bsmall:
+        maxcol = 5
+        maxrow = 5
+    elif player_map == bmed:
+        maxcol = 7
+        maxrow = 7
+    elif player_map == blarge:
+        maxcol = 9
+        maxrow = 9
+
     while True:
-        # Placement of player ships on a small board
-        if player_map == bsmall:
-            try:
-                col = int(input("Please select column: "))
-                row = int(input("Please select row: "))
-                if 0 <= row < 5 \
-                        and 0 <= col < 5 \
-                        and (row, col) \
-                        not in occupied:
-                    bsmall.populate(ships, bsmall.iterline((row, col), (1, 0)))
-                    # Add chosen integer to occupied set
-                    occupied.add((row, col))
-                else:
-                    print(
-                        Fore.RED +
-                        "Invalid coordinates - please try again!"
-                        + Style.RESET_ALL)
-                    player_coords(player_map, bsmall, bmed, blarge, occupied)
-                    break
-            except ValueError:
+        try:
+            col = int(input("Please select column: "))
+            row = int(input("Please select row: "))
+            if 0 <= col < maxcol \
+                    and 0 <= row < maxrow \
+                    and (row, col) \
+                    not in occupied:
+                player_map.populate(ships, player_map.iterline((row, col), (1, 0)))
+                occupied.add((row, col))
+     
+            else:
                 print(
                     Fore.RED +
-                    "Invalid input! Please enter a number!" +
-                    Style.RESET_ALL)
-                player_coords(player_map, bsmall, bmed, blarge, occupied)
-            break
-        # Placement of player ships on a medium board
-        elif player_map == bmed:
-            try:
-                row = int(input("Please select column: "))
-                col = int(input("Please select row: "))
-                if 0 <= row < 7 \
-                        and 0 <= col < 7 \
-                        and (row, col) \
-                        not in occupied:
-                    bmed.populate(ships, bmed.iterline((row, col), (1, 0)))
-                    occupied.add((row, col))
-                else:
-                    print(
-                        Fore.RED +
-                        "Invalid coordinates - please try again!"
-                        + Style.RESET_ALL)
-                    player_coords(player_map, bsmall, bmed, blarge, occupied)
-                    break
-            except ValueError:
-                print(
-                    Fore.RED +
-                    "Invalid input! Please enter a number!"
+                    "Invalid coordinates - please try again!"
                     + Style.RESET_ALL)
                 player_coords(player_map, bsmall, bmed, blarge, occupied)
-            break
-        # Placement of player ships on a large board
-        elif player_map == blarge:
-            try:
-                row = int(input("Please select column: "))
-                col = int(input("Please select row: "))
-                if 0 <= row < 9 \
-                        and 0 <= col < 9 \
-                        and (row, col) \
-                        not in occupied:
-                    blarge.populate(ships, blarge.iterline((row, col), (1, 0)))
-                    occupied.add((row, col))
-                else:
-                    print(
-                        Fore.RED +
-                        "Invalid coordinates - please try again!"
-                        + Style.RESET_ALL)
-                    player_coords(player_map, bsmall, bmed, blarge, occupied)
-                    break
-            except ValueError:
-                print(
-                    Fore.RED +
-                    "Invalid input! Please enter a number!"
-                    + Style.RESET_ALL)
-                player_coords(player_map, bsmall, bmed, blarge, occupied)
-            break
+                break
+
+        except ValueError:
+            print(
+                Fore.RED +
+                "Invalid input! Please enter a number!" +
+                Style.RESET_ALL)
+        break
 
     return player_map, occupied
 
