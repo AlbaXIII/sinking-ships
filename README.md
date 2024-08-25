@@ -69,6 +69,8 @@ Misses are displayed on the board as a O symbol. This is a point of differentiat
 
 When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beggining another play loop.
 
+![Win message image](readme-images/win-message.PNG)
+
 ![Loss message image](readme-images/loss-message.PNG)
 
 ## **Methodology**
@@ -117,6 +119,10 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 ![Player repeat coordinates image](readme-images/player-repeat-validation.PNG)
 
+**Restart game validation**
+
+![Repeat game validation image](readme-images/repeat-game-validation.PNG)
+
 ### **PEP8 (Pycodestyle)**
 
 No major issues presented using PEP8/Pycodestyle.
@@ -126,7 +132,7 @@ No major issues presented using PEP8/Pycodestyle.
 ## **Technology and additional software used**
 - Python3
     - [random](https://docs.python.org/3/library/random.html)
-        - Random.randrange function used to generate random coordinates for placement of enemy ships on computer board.
+        - Random.randrange function used to generate random coordinates for placement of enemy ships on computer board, and attack coordinates on the player's board.
     - [board](https://pypi.org/project/board/#description)
         - Used to implement a general board structure in order to somplify the actual process of generating a game space.
     - [colorama](https://pypi.org/project/colorama/)
