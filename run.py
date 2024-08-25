@@ -92,6 +92,7 @@ def choose_map(
             comp_map = csmall
             dummy_map = dsmall
             return player_map
+            return comp_map
 
         elif map_size in ["M", "m"]:
             print("\nMedium map selected - 7 ships\n")
@@ -100,6 +101,7 @@ def choose_map(
             comp_map = cmed
             dummy_map = dmed
             return player_map
+            return comp_map
 
         elif map_size in ["L", "l"]:
             print("\nLarge map selected - 10 ships\n")
@@ -108,6 +110,7 @@ def choose_map(
             comp_map = clarge
             dummy_map = dlarge
             return player_map
+            return comp_map
 
         else:
             print("What! Please select S/M/L")
@@ -204,49 +207,28 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied):
     Function for computer ship placement on all board sizes
     """
 
+    if comp_map == csmall:
+        maxcol = 4
+        maxrow = 4
+    elif comp_map == cmed:
+        maxcol = 6
+        maxrow = 6
+    elif comp_map == clarge:
+        maxcol = 8
+        maxrow = 8
+
     while True:
-        # Add ship icon to board cell called by randrange function, small board
-        if comp_map == csmall:
-            for ship in ships:
-                while True:
-                    row = randrange(0, 4)
-                    col = randrange(0, 4)
-                    # Add called random integer to c_occupied set
-                    if ((row, col)) in c_occupied:
-                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
-                    else:
-                        csmall.populate(
-                            ships, csmall.iterline((row, col), (1, 0)))
-                    c_occupied.add((row, col))
-                    break
-            return comp_map
-        # Add ship icon to board cell called by randrange function, med board
-        elif comp_map == cmed:
-            for ship in ships:
-                while True:
-                    row = randrange(0, 6)
-                    col = randrange(0, 6)
-                    if ((row, col)) in c_occupied:
-                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
-                    else:
-                        cmed.populate(ships, cmed.iterline((row, col), (1, 0)))
-                    c_occupied.add((row, col))
-                    break
-            return comp_map
-        # Add ship icon to board cell called by randrange function, large board
-        elif comp_map == clarge:
-            for ship in ships:
-                while True:
-                    row = randrange(0, 8)
-                    col = randrange(0, 8)
-                    if ((row, col)) in c_occupied:
-                        comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
-                    else:
-                        clarge.populate(
-                            ships, clarge.iterline((row, col), (1, 0)))
-                    c_occupied.add((row, col))
-                    break
-            return comp_map
+        for ship in ships:
+            col = randrange(0, maxcol)
+            row = randrange(0, maxrow)
+            if ((row, col)) in c_occupied:
+                comp_coords(comp_map, csmall, cmed, clarge, c_occupied)
+            else:
+                comp_map.populate(
+                    ships, comp_map.iterline((row, col), (1, 0)))
+                c_occupied.add((row, col))
+                break
+        return comp_map
 
 
 def check_hit_player(comp_map, dummy_map, username, attempts):
@@ -273,7 +255,6 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             dummy_map.draw()
             # Add chosen integers to attempts array
             attempts.append((col, row))
-            print(attempts)
 
         elif ((col, row)) in attempts:
             print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
