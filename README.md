@@ -73,7 +73,7 @@ When the game is completed, the player will be presented with an option to eithe
 
 ## **Methodology**
 
-
+![Function lucid chart map](readme-images/function-map.webp)
 
 
 
