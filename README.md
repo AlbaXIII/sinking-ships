@@ -75,7 +75,7 @@ When the game is completed, the player will be presented with an option to eithe
 
 ![Function lucid chart map](readme-images/function-map.webp)
 
-
+XXXXXXXXXXXXXXXXXXXXXXXX
 
 ## **Future features**
 
@@ -121,9 +121,7 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 No major issues presented using PEP8/Pycodestyle.
 
-
-
-
+![Pycodestyle check image](readme-images/pycodestyle-check.PNG)
 
 ## **Technology and additional software used**
 - Python3
