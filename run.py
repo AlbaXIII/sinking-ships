@@ -229,7 +229,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     return impact
 
 
-def check_hit_comp(player_map, username):
+def check_hit_comp(player_map, username, maxcol, maxrow):
     """
     Function to check if player hit on comp_board is successful
     """
@@ -238,15 +238,9 @@ def check_hit_comp(player_map, username):
     # Same as player attack, hit by default
     impact = 1
     # Random integers called for attack on player board
-    if player_map == bsmall:
-        col = randrange(0, 4)
-        row = randrange(0, 4)
-    elif player_map == bmed:
-        col = randrange(0, 6)
-        row = randrange(0, 6)
-    elif player_map == blarge:
-        col = randrange(0, 8)
-        row = randrange(0, 8)
+
+    col = randrange(0, maxcol)
+    row = randrange(0, maxrow)
 
     if player_map[row, col] == "B":
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
@@ -267,7 +261,10 @@ def check_hit_comp(player_map, username):
     return impact
 
 
-def game_loop(player_map, comp_map, dummy_map, username, attempts, win):
+def game_loop(
+        player_map, comp_map, dummy_map,
+        username, attempts, win,
+        maxcol, maxrow):
     """
     Function to loop player & computer attacks until winner
     """
@@ -287,7 +284,7 @@ def game_loop(player_map, comp_map, dummy_map, username, attempts, win):
             break
 
         # Add up return from computer check hit function for winning score
-        comp_hits += check_hit_comp(player_map, username)
+        comp_hits += check_hit_comp(player_map, username, maxcol, maxrow)
         if comp_hits == win:
             print(
                 Fore.RED +
@@ -391,7 +388,10 @@ def play_game():
     # Initialise attempts array
     attempts = []
     # Main game loop call
-    game_loop(player_map, comp_map, dummy_map, username, attempts, win)
+    game_loop(
+        player_map, comp_map, dummy_map,
+        username, attempts, win,
+        maxcol, maxrow)
     # Restart game when winnner
     game_restart()
 
