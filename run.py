@@ -264,7 +264,7 @@ def check_hit_comp(player_map, username):
     return impact
 
 
-def game_loop(player_map, comp_map, dummy_map, username, attempts):
+def game_loop(player_map, comp_map, dummy_map, username, attempts, win):
     """
     Function to loop player & computer attacks until winner
     """
@@ -276,48 +276,20 @@ def game_loop(player_map, comp_map, dummy_map, username, attempts):
         # Add up return from check hit function for winning score
         player_hits += check_hit_player(
             comp_map, dummy_map, username, attempts)
-        if player_map == bsmall and player_hits == 5:
+        if player_hits == win:
             print(
                 Fore.GREEN +
                 f"\nExcellent work {username}, you've saved the island!"
                 + Style.RESET_ALL)
             break
 
-        elif player_map == bmed and player_hits == 7:
-            print(
-                Fore.GREEN +
-                f"\nExcellent work {username}, you've saved the island!"
-                + Style.RESET_ALL)
-            break
-
-        elif player_map == blarge and player_hits == 10:
-            print(
-                Fore.GREEN +
-                f"\nExcellent work {username}, you've saved the island!"
-                + Style.RESET_ALL)
-            break
         # Add up return from computer check hit function for winning score
         comp_hits += check_hit_comp(player_map, username)
-        if comp_map == csmall and comp_hits == 5:
+        if comp_hits == win:
             print(
                 Fore.RED +
                 "\nMission failed, we'll get 'em next time!\n" +
                 Style.RESET_ALL)
-            break
-
-        elif comp_map == cmed and comp_hits == 7:
-            print(
-                Fore.RED +
-                "\nMission failed, we'll get 'em next time!\n" +
-                Style.RESET_ALL)
-            break
-
-        elif comp_map == clarge and comp_hits == 10:
-            print(
-                Fore.RED +
-                "\nMission failed, we'll get 'em next time!\n" +
-                Style.RESET_ALL
-                )
             break
 
 
@@ -372,6 +344,7 @@ def play_game():
         dummy_map = dsmall
         maxcol = 4
         maxrow = 4
+        win = 5
         # For loop to apply function for as many ships
         for x in range(0, 5):
             player_coords(
@@ -385,6 +358,7 @@ def play_game():
         dummy_map = dmed
         maxcol = 6
         maxrow = 6
+        win = 7
         for x in range(0, 7):
             player_coords(
                 player_map, bsmall, bmed, blarge,
@@ -397,6 +371,7 @@ def play_game():
         dummy_map = dlarge
         maxcol = 8
         maxrow = 8
+        win = 10
         for x in range(0, 10):
             player_coords(
                 player_map, bsmall, bmed, blarge,
@@ -413,7 +388,7 @@ def play_game():
     # Initialise attempts array
     attempts = []
     # Main game loop call
-    game_loop(player_map, comp_map, dummy_map, username, attempts)
+    game_loop(player_map, comp_map, dummy_map, username, attempts, win)
     # Restart game when winnner
     game_restart()
 
