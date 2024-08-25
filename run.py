@@ -69,10 +69,13 @@ def create_user():
     while True:
         username = input("Who are you?\n")
         if username:
-            print(f"\nWelcome to the fleet {username}!\n")
+            print(
+                Fore.BLUE +
+                f"\nWelcome to the fleet {username}!\n" +
+                Style.RESET_ALL)
             return username
         else:
-            print("I can't hear you! Try again.")
+            print(Fore.RED + "I can't hear you! Try again." + Style.RESET_ALL)
 
 
 def choose_map(
