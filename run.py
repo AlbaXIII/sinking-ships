@@ -132,11 +132,17 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
                     # Add chosen integer to occupied set
                     occupied.add((row, col))
                 else:
-                    print("Invalid coordinates - please try again!")
+                    print(
+                        Fore.RED +
+                        "Invalid coordinates - please try again!"
+                        + Style.RESET_ALL)
                     player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
-                print("Invalid input! Please enter a number!")
+                print(
+                    Fore.RED +
+                    "Invalid input! Please enter a number!" +
+                    Style.RESET_ALL)
                 player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
         # Placement of player ships on a medium board
@@ -151,11 +157,17 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
                     bmed.populate(ships, bmed.iterline((row, col), (1, 0)))
                     occupied.add((row, col))
                 else:
-                    print("Invalid coordinates - please try again!")
+                    print(
+                        Fore.RED +
+                        "Invalid coordinates - please try again!"
+                        + Style.RESET_ALL)
                     player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
-                print("Invalid input! Please enter a number!")
+                print(
+                    Fore.RED +
+                    "Invalid input! Please enter a number!"
+                    + Style.RESET_ALL)
                 player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
         # Placement of player ships on a large board
@@ -170,11 +182,17 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
                     blarge.populate(ships, blarge.iterline((row, col), (1, 0)))
                     occupied.add((row, col))
                 else:
-                    print("Invalid coordinates - please try again!")
+                    print(
+                        Fore.RED +
+                        "Invalid coordinates - please try again!"
+                        + Style.RESET_ALL)
                     player_coords(player_map, bsmall, bmed, blarge, occupied)
                     break
             except ValueError:
-                print("Invalid input! Please enter a number!")
+                print(
+                    Fore.RED +
+                    "Invalid input! Please enter a number!"
+                    + Style.RESET_ALL)
                 player_coords(player_map, bsmall, bmed, blarge, occupied)
             break
 
@@ -255,6 +273,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             dummy_map.draw()
             # Add chosen integers to attempts array
             attempts.append((col, row))
+            print(attempts)
 
         elif ((col, row)) in attempts:
             print(
@@ -276,11 +295,13 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
 
     except ValueError:
         # Validation for non-integer input
-        print("Please enter a number!")
+        print(Fore.RED + "Please enter a number!" + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
         # Specific error for board out of bounds integers
     except board.Board.OutOfBoundsError:
-        print("Please select a coordinate within game bounds!")
+        print(
+            Fore.RED + "Please select a coordinate within game bounds!"
+            + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
 
     return impact
