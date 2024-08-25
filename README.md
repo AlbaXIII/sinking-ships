@@ -115,13 +115,19 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 ![Username validation image](readme-images/username-validation.png)
 
+User cannot leave input prompt empty.
+
 **Map size validation**
 
 ![Map size validation image](readme-images/map-size-validation.PNG)
 
+User can only enter S/s/M/m/L/l.
+
 **Player coordination validation**
 
 ![Player coordinates validation image](readme-images/player-coord-validation.PNG)
+
+User cannot enter integers out of bounds, invalid characters or leave blank.
 
 **Player attack validation**
 
@@ -129,9 +135,13 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 ![Player repeat coordinates image](readme-images/player-repeat-validation.PNG)
 
+User cannot enter integers out of bounds, invalid characters, leave blank or repeat attack coordinates. 
+
 **Restart game validation**
 
 ![Repeat game validation image](readme-images/repeat-game-validation.PNG)
+
+User can only enter Y/y/N/n.
 
 ### **PEP8 (Pycodestyle)**
 
