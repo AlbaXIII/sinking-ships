@@ -129,15 +129,17 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
                     and 0 <= row <= maxrow \
                     and (row, col) \
                     not in occupied:
-                player_map.populate(ships, player_map.iterline((row, col), (1, 0)))
+                player_map.populate(
+                    ships, player_map.iterline((row, col), (1, 0)))
                 occupied.add((row, col))
-     
+
             else:
                 print(
                     Fore.RED +
                     "Invalid coordinates - please try again!"
                     + Style.RESET_ALL)
-                player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
+                player_coords(
+                    player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
                 break
 
         except ValueError:
@@ -160,7 +162,8 @@ def comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow):
             col = randrange(0, maxcol)
             row = randrange(0, maxrow)
             if ((row, col)) in c_occupied:
-                comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
+                comp_coords(
+                    comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
             else:
                 comp_map.populate(
                     ships, comp_map.iterline((row, col), (1, 0)))
@@ -371,24 +374,36 @@ def play_game():
         maxrow = 4
         # For loop to apply function for as many ships
         for x in range(0, 5):
-            player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
-            comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
+            player_coords(
+                player_map, bsmall, bmed, blarge,
+                occupied, maxcol, maxrow)
+            comp_coords(
+                comp_map, csmall, cmed, clarge,
+                c_occupied, maxcol, maxrow)
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
         maxcol = 6
         maxrow = 6
         for x in range(0, 7):
-            player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
-            comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
+            player_coords(
+                player_map, bsmall, bmed, blarge,
+                occupied, maxcol, maxrow)
+            comp_coords(
+                comp_map, csmall, cmed, clarge,
+                c_occupied, maxcol, maxrow)
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
         maxcol = 8
         maxrow = 8
         for x in range(0, 10):
-            player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow)
-            comp_coords(comp_map, csmall, cmed, clarge, c_occupied, maxcol, maxrow)
+            player_coords(
+                player_map, bsmall, bmed, blarge,
+                occupied, maxcol, maxrow)
+            comp_coords(
+                comp_map, csmall, cmed, clarge,
+                c_occupied, maxcol, maxrow)
 
     print(f"\n{username} formation confirmed!")
     player_map.draw()
