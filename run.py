@@ -148,7 +148,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
         # Placement of player ships on a medium board
         elif player_map == bmed:
             try:
-                row = int(input("\nPlease select column: "))
+                row = int(input("Please select column: "))
                 col = int(input("Please select row: "))
                 if 0 <= row < 7 \
                         and 0 <= col < 7 \
@@ -173,7 +173,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied):
         # Placement of player ships on a large board
         elif player_map == blarge:
             try:
-                row = int(input("\nPlease select column: "))
+                row = int(input("Please select column: "))
                 col = int(input("Please select row: "))
                 if 0 <= row < 9 \
                         and 0 <= col < 9 \
@@ -276,10 +276,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             print(attempts)
 
         elif ((col, row)) in attempts:
-            print(
-                Fore.BLUE +
-                "Please select new coordinates!"
-                + Style.RESET_ALL)
+            print(Fore.BLUE + "Please select new coordinates!" + Style.RESET_ALL)
             # Loop function if user input already used
             check_hit_player(comp_map, dummy_map, username, attempts)
 
