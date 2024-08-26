@@ -390,8 +390,8 @@ def play_game():
     elif player_map == blarge:
         comp_map = clarge
         dummy_map = dlarge
-        maxcol = 9
-        maxrow = 9
+        maxcol = 8
+        maxrow = 8
         win = 10
         for x in range(0, 10):
             player_coords(
