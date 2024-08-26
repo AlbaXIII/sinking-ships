@@ -249,19 +249,28 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     col = randrange(0, maxcol)
     row = randrange(0, maxrow)
 
-    if player_map[row, col] == "B":
+    if player_map[row, col] == "B" and ((col, row)) not in c_attempts:
         print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         # Display player board
         player_map.draw()
+        c_attempts.append((col, row))
+
+    elif ((col, row)) in c_attempts:
+        impact = 0
+        print(
+            Fore.RED +
+            "\nThe squid are biding their time..." +
+            Style.RESET_ALL)
 
     else:
         print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
+        c_attempts.append((col, row))
         player_map.draw()
         impact = 0
 
