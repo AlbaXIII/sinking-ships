@@ -4,7 +4,7 @@
 
 Sinking ships is a command-line Python3 game of strategy (and more than a bit of luck).
 
-Based primarily on the classic pen-and-paper game Battleships, Sinking Ships takes further inspiration from the eponymous 'Sinking Ships' mini-game in the 2002 video game Legend of Zelda - Wind Waker, where the player must locate and eliminate enemy squid before they have the chance to wreack havoc. The setting of the minigame combined with the mechanism of battleships is what constitutes Sinking Ships - a casual game with a humerous edge for anyone to while away a few minutes on.
+Based primarily on the classic pen-and-paper game Battleships, Sinking Ships takes further inspiration from the eponymous 'Sinking Ships' mini-game in the 2002 video game 'The Legend of Zelda - The Wind Waker', where the player must locate and eliminate enemy squid before they have the chance to wreack havoc. The setting of the minigame combined with the mechanism of battleships is what constitutes Sinking Ships - a casual game with a humerous edge for anyone to while away a few minutes on.
 
 **Zee fiends approach!**
 
@@ -87,7 +87,7 @@ The functions are then roughly divided into initial user input and game loop, wi
 
 Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, , arrays managing occupied cells/attempts and the win threshold.
 
-When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lions share of the project is laid out in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
+When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lions share of the project is constructed out in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
 
 ## **Future features**
 
@@ -184,13 +184,22 @@ This was because I had included the check of the set in the population check sec
                         csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
 
-- XXXXXXXXXXXXXX
-
 ### **Unfixed Bugs**
 
-- BOARD XXXXXXXXXXXXXXXXXXXXXXXXX
+- On the whole the use of the board package was beneficial to this project, however I did experience a fair amount of graphical glitches whilst generating the game maps. This could be linked to the code being quite heavy on memory, especially in early development, but eased off after a while. However, time constraints mean I cannot completely 100% rule out the interation between the code & board being airtight. Re-running the application fixes the issues in all cases.
 
-- Computer attempts
+- During the closing stages of development, I worked quite hard on condensing the code to avoid instances of repetition. However in doing so I encountered an issue with the dovetail between iterating the computers hit score and stopping the randrange function from repeatedly attacking the same coordinates and adding more "ghost" score to the total. Time ran out before I could satisfactorily rectify this, so the placeholder solution was to add a line of flavor text which 'skipped' the computer turn whilst leaving the score untouched.
+
+        elif ((col, row)) in c_attempts:
+            impact = 0
+            print(
+                Fore.RED +
+                "\nThe squid are biding their time..." +
+                Style.RESET_ALL)
+
+Whilst this is by no means a perfect solution, the "story" of the game having the computer opponent being squid hopefull allows a modicum more leeway.
+
+- No other known bugs at time of submission.
 
 ## **Deployment**
 
@@ -210,7 +219,7 @@ The process for deployment is listed below;
 
 ## **Credits**
 
-- As always many thanks to my mentor Dick Vlandaaren for the patience, and words of wisdom. This project was difficult for me to get my head around, but the advice was always excellent, if not my ability to follow through on it.
+- As always many thanks to my mentor Dick Vlandaaren for the patience, and words of wisdom. This project was very difficult for me, but the advice was always excellent, if not my ability to follow through on it.
 - Inspiration taken from Sinking Ships in the [Legend of Zelda : The Wind Waker](https://www.zeldadungeon.net/wiki/Sinking_Ships). 
 - Research and structural inspiration from similar projects from [Stack Overflow](https://stackoverflow.com/questions/77575338/battleship-project-with-python) and [Code Academy](https://discuss.codecademy.com/t/excellent-battleship-game-written-in-python/430605)
 

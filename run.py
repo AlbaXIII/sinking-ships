@@ -257,7 +257,7 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
         # Display player board
         player_map.draw()
         c_attempts.append((col, row))
-
+    # Placeholder method of stopping repeated Computer attempts on same cell
     elif ((col, row)) in c_attempts:
         impact = 0
         print(
