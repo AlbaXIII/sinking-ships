@@ -250,7 +250,7 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     row = randrange(0, maxrow)
 
     if player_map[row, col] == "B" and ((col, row)) not in c_attempts:
-        print(Fore.GREEN + "Oh no! They got us!\n" + Style.RESET_ALL)
+        print(Fore.GREEN + "\nOh no! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
@@ -262,7 +262,7 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
         impact = 0
         print(
             Fore.RED +
-            "\nThe squid are biding their time..." +
+            "\nThe squid are biding their time...\n" +
             Style.RESET_ALL)
 
     else:
@@ -292,6 +292,7 @@ def game_loop(
         # Add up return from check hit function for winning score
         player_hits += check_hit_player(
             comp_map, dummy_map, username, attempts)
+        print(f"{username} score")
         print(player_hits)
         if player_hits == win:
             print(
@@ -303,6 +304,7 @@ def game_loop(
         # Add up return from computer check hit function for winning score
         comp_hits += check_hit_comp(
             player_map, username, maxcol, maxrow, c_attempts)
+        print("Computer score")
         print(comp_hits)
         if comp_hits == win:
             print(
