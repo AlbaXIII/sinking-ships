@@ -4,7 +4,7 @@
 
 Sinking ships is a command-line Python3 game of strategy (and more than a bit of luck).
 
-Based primarily on the classic pen-and-paper game Battleships, Sinking Ships takes further inspiration from the eponymous 'Sinking Ships' mini-game in the 2002 video game 'The Legend of Zelda - The Wind Waker', where the player must locate and eliminate enemy squid before they have the chance to wreack havoc. The setting of the minigame combined with the mechanism of battleships is what constitutes Sinking Ships - a casual game with a humerous edge for anyone to while away a few minutes on.
+Based primarily on the classic pen-and-paper game Battleships, Sinking Ships takes further inspiration from the eponymous 'Sinking Ships' mini-game in the 2002 video game 'The Legend of Zelda - The Wind Waker', where the player must locate and eliminate enemy squid before they have the chance to wreak havoc. The setting of the minigame combined with the mechanism of battleships is what constitutes Sinking Ships - a casual game with a humerous edge for anyone to while away a few minutes on.
 
 **Zee fiends approach!**
 
@@ -12,17 +12,17 @@ Based primarily on the classic pen-and-paper game Battleships, Sinking Ships tak
 
 ## **How to play**
 
-1. Run the program from the host site on Heroku.
+1. Run the program from the host site on [Heroku](https://sinking-ships-ec79824176fc.herokuapp.com/).
 2. Enter your username when prompted.
-3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here.
+3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here, as well as board range.
 4. Check over your board, and use the prompt to position your ships by using columns and rows - ships are signified by the string "B" - and see the result of your board when finished.
-5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding unit of the board. Misses are marked by a "O", and a hit by an "X"!
+5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding cell of the board. Misses are marked by a "O", and a hit by an "X"!
 6. When all of your opponents squid are sunk, or your own ships, you win or lose!
 7. Play again or quit the game.
 
 ## **Target users**
 
-The scope of user for a program like this is very wide - it is hopefully a diversionary bit of software for anyone to enjoy, but will most likely be most enjoyed by a user with a background in coding.
+The scope of user for a program like this is very wide - it is hopefully a diversionary bit of software for anyone to enjoy, but will most likely be most enjoyed by a user with a background in coding (and gaming).
 
 ## **Features and functions**
 
@@ -36,7 +36,7 @@ After the username is entered, flavor text will describe the "setting" of the ga
 
 - **Map size & board**
 
-There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by a anterior function that populates each 'cell' of the board with the tilde ("~") key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling to visually empty.
+There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by an anterior function that populates each 'cell' of the board with the tilde ("~") key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling too visually empty.
 
 ![User board display](readme-images/board-display.PNG)
 
@@ -54,20 +54,19 @@ Once selected, the user can see the end result of their formation choice. The ai
 
 The application will then populate the computers map with a function that uses Python3's built-in random interger generator to initialise two random numbers, which is then used to populate the computer board. At the same time, there is a dummy board being generated and populated in the same cells, which is used to give a visual for the players attacks without revealing the location of the computers other ships.
 
-
 - **Attacking & game loop**
 
-The game will then prompt the user for the first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. 
+The game will then prompt the user for their first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. 
 
 ![Player hit image](readme-images/player-attack-success.PNG)
 
-Concurrently the computer attack function will check for a hit on the player board, again utilising the randrange function to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
+Concurrently, the computer attack function will check for a hit on the player board, again utilising the randrange feature to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
 
 Misses are displayed on the board as a O symbol. This is a point of differentiation so the player can determine the state of their board and from there be able to make an informed decision on where to attack next.
 
 ![Computer hit image](readme-images/enemy-attack-success.PNG)
 
-When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beggining another play loop.
+When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beginning another play loop.
 
 ![Win message image](readme-images/win-message.PNG)
 
@@ -79,21 +78,21 @@ When the game is completed, the player will be presented with an option to eithe
 
 The first step of development of this project was to map out the functions that I believed would be needed to create a game with the scope detailed by the project outline.
 
-With that in mind, the decision was taken early on to utilise the board package to simplify the process of designing the maps, and to provide them with a visual fidelity that I though would work well for the user.
+With that in mind, the decision was taken early on to utilise the board package to simplify the process of designing the maps, and to provide them with a visual fidelity that I thought would work well for the user.
 
 To that end, the boards are declared at the top of the code as global variables to be passed around through multiple functions. Three sets of three were needed for the user, opponent, and a visual dummy board to give ocular feedback to the user for hits or misses.
 
-The functions are then roughly divided into initial user input and game loop, with initial user input for username & placement of ships, and game loop handling the attacking of the computer board.
+The functions are then roughly divided into initial user input and game loop, with initial user input for username & placement of ships, and game loop handling the attacking of the computer board & defence of the users'.
 
-Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, , arrays managing occupied cells/attempts and the win threshold.
+Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, attempted attacks, arrays managing occupied cells/attempts and the win threshold.
 
-When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lions share of the project is constructed out in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
+When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lion's share of the project is constructed in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
 
 ## **Future features**
 
 - **Colored boards**
 
-(See bugs) One of the problems encountered in creation of the game is the dovetail between the package generating the board and the one generating color for the characters in the command line didn't gel, and provided boards with a lot of ascii errors. Future releases of the game would hopefully rectify this and have the board be more visually appealing to the user.
+(See bugs) One of the problems encountered in the creation of the game is the dovetail between the package generating the board and the one generating color for the codebase. The packages didn't gel well, and provided boards with a lot of ascii errors. Future releases of the game would hopefully rectify this and have the board be more visually appealing to the user.
 
 - **Ship variants**
 
@@ -145,7 +144,7 @@ User can only enter Y/y/N/n.
 
 ### **PEP8 (Pycodestyle)**
 
-No major issues presented using PEP8/Pycodestyle.
+No major issues presented using PEP8/Pycodestyle linter.
 
 ![Pycodestyle check image](readme-images/pycodestyle-check.PNG)
 
@@ -154,7 +153,7 @@ No major issues presented using PEP8/Pycodestyle.
     - [random](https://docs.python.org/3/library/random.html)
         - Random.randrange function used to generate random coordinates for placement of enemy ships on computer board, and attack coordinates on the player's board.
     - [board](https://pypi.org/project/board/#description)
-        - Used to implement a general board structure in order to somplify the actual process of generating a game space.
+        - Used to implement a general board structure in order to simplify the actual process of generating a game space.
     - [colorama](https://pypi.org/project/colorama/)
         - Fore aspect of Colorama used to provide a pop of color to increase visual enjoyment for the user.
     - [PEP8 (aka pycodestyle)](https://peps.python.org/pep-0008/)
@@ -166,14 +165,13 @@ No major issues presented using PEP8/Pycodestyle.
 
 - When starting the initialisation process for the game boards, the original idea was to have them populated by colored icons using the colorama package. However when using the syntax utilised elsewhere in the project for one-off color bursts;
 
-    (Fore.BLUE + "~" + Style.RESET_ALL)
+            (Fore.BLUE + "~" + Style.RESET_ALL)
 
     The board would throw up a lot of character errors;
 
 ![Map errors image](readme-images/map-errors.PNG)
 
-
-- In the player coordinate function, there is a subroutine to add the columns and rows selected to a set that is initialised in the main game function. However, when applying the same logic to the computer coordinates (to stop it from generating the same sets and populating the board over itself) the syntax used was causing the randrange element of the function to return the same numbers every time (1, 1)
+- In the player coordinate function, there is a subroutine to add the columns and rows selected to a set that is initialised in the main game function. However, when applying the same logic to the computer coordinates (to stop it from generating the same sets and populating the board over itself) the syntax used was causing the randrange element of the function to return the same numbers every time (1, 1).
 This was because I had included the check of the set in the population check section of the code, causing the generation to return the same numbers. Reworking the function to simplify the check fixed the error and allowed the generator to start returning random integers again;
 
                     row = randrange(0, 7)
@@ -186,9 +184,9 @@ This was because I had included the check of the set in the population check sec
 
 ### **Unfixed Bugs**
 
-- On the whole the use of the board package was beneficial to this project, however I did experience a fair amount of graphical glitches whilst generating the game maps. This could be linked to the code being quite heavy on memory, especially in early development, but eased off after a while. However, time constraints mean I cannot completely 100% rule out the interation between the code & board being airtight. Re-running the application fixes the issues in all cases.
+- On the whole the use of the board package was beneficial to this project, however I did experience a fair amount of graphical & population glitches whilst generating the game maps. This could be linked to the code being quite heavy on memory, especially in early development, but eased off after a period of work. However, time constraints mean I cannot completely guarantee the interation between the code & board being airtight. Re-running the application fixes the issues in all cases.
 
-- During the closing stages of development, I worked quite hard on condensing the code to avoid instances of repetition. However in doing so I encountered an issue with the dovetail between iterating the computers hit score and stopping the randrange function from repeatedly attacking the same coordinates and adding more "ghost" score to the total. Time ran out before I could satisfactorily rectify this, so the placeholder solution was to add a line of flavor text which 'skipped' the computer turn whilst leaving the score untouched.
+- During the closing stages of development, I worked quite hard on condensing the code to avoid instances of repetition, and the code being hard to read. However in doing so I encountered an issue with the interaction between the computers hit score and stopping the randrange function from repeatedly attacking the same coordinates, and adding more "ghost" score to the total. Time ran out before I could satisfactorily rectify this, so the placeholder solution used was to add a line of flavor text which 'skipped' the computer turn whilst leaving the score untouched.
 
         elif ((col, row)) in c_attempts:
             impact = 0
@@ -197,7 +195,7 @@ This was because I had included the check of the set in the population check sec
                 "\nThe squid are biding their time..." +
                 Style.RESET_ALL)
 
-Whilst this is by no means a perfect solution, the "story" of the game having the computer opponent being squid hopefull allows a modicum more leeway.
+Whilst this is by no means a perfect solution, the 'story' of the game having the computer opponent being squid hopefully allows a modicum more leeway and a humerous touch (depending on one's sense of humour).
 
 - No other known bugs at time of submission.
 
@@ -219,7 +217,7 @@ The process for deployment is listed below;
 
 ## **Credits**
 
-- As always many thanks to my mentor Dick Vlandaaren for the patience, and words of wisdom. This project was very difficult for me, but the advice was always excellent, if not my ability to follow through on it.
+- As always many thanks to my mentor Dick Vlaanderen for the patience, and words of wisdom. This project was very difficult for me, but the advice was always excellent, if not my ability to follow through on it.
 - Inspiration taken from Sinking Ships in the [Legend of Zelda : The Wind Waker](https://www.zeldadungeon.net/wiki/Sinking_Ships). 
 - Research and structural inspiration from similar projects from [Stack Overflow](https://stackoverflow.com/questions/77575338/battleship-project-with-python) and [Code Academy](https://discuss.codecademy.com/t/excellent-battleship-game-written-in-python/430605)
 
