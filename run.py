@@ -1,6 +1,6 @@
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 import board
-from random import randrange, randint
+from random import randrange
 
 # define ship and hit icons for visual indicator on maps
 ships = ["B"]
@@ -13,7 +13,6 @@ def bsea():
     function to fill empty board with 'sea' icons for user board
     """
     import random
-    import string
     while True:
         yield random.choice("~")
 
@@ -23,7 +22,6 @@ def csea():
     function to fill empty board with 'sea' icons for computer and dummy board
     """
     import random
-    import string
     while True:
         yield random.choice("-")
 
@@ -88,7 +86,12 @@ def choose_map(
 
         map_size = input("Please choose a map size - [S/M/L]\n")
         if map_size in ["S", "s"]:
-            print("\nSmall map selected - 5 ships (Range 0-4)\n")
+            print("\nSmall map selected! - 5 ships (Range 0-4)\n")
+            print("\nYou have 5 ships!\n")
+            print("------------")
+            print(
+                Fore.BLUE + "\nPlease choose coordinates from 1 to 4!\n"
+                + Style.RESET_ALL)
             bsmall.draw()
             player_map = bsmall
             comp_map = csmall
@@ -97,7 +100,12 @@ def choose_map(
             return comp_map
 
         elif map_size in ["M", "m"]:
-            print("\nMedium map selected - 7 ships (Range 0-6)\n")
+            print("\nMedium map selected!\n")
+            print("\nYou have 6 ships!\n")
+            print("------------")
+            print(
+                Fore.BLUE + "\nPlease choose coordinates from 1 to 6!\n"
+                + Style.RESET_ALL)
             bmed.draw()
             player_map = bmed
             comp_map = cmed
@@ -106,7 +114,12 @@ def choose_map(
             return comp_map
 
         elif map_size in ["L", "l"]:
-            print("\nLarge map selected - 10 ships (Range 0-9)\n")
+            print("\nLarge map selected!\n")
+            print("\nYou have 10 ships!\n")
+            print("------------")
+            print(
+                Fore.BLUE + "\nPlease choose coordinates from 1 to 8!\n"
+                + Style.RESET_ALL)
             blarge.draw()
             player_map = blarge
             comp_map = clarge
@@ -135,6 +148,7 @@ def player_coords(player_map, bsmall, bmed, blarge, occupied, maxcol, maxrow):
                     ships, player_map.iterline((row, col), (1, 0)))
                 # Add to occupied set to avoid repetition
                 occupied.add((row, col))
+                print(Fore.GREEN + "\n Ship placed! \n" + Style.RESET_ALL)
             # Validation for coordinates out of bounds
             else:
                 print(
@@ -363,8 +377,8 @@ def play_game():
     if player_map == bsmall:
         comp_map = csmall
         dummy_map = dsmall
-        maxcol = 5
-        maxrow = 5
+        maxcol = 4
+        maxrow = 4
         win = 5
         # For loop to apply function for as many ships
         for x in range(0, 5):
@@ -377,8 +391,8 @@ def play_game():
     elif player_map == bmed:
         comp_map = cmed
         dummy_map = dmed
-        maxcol = 7
-        maxrow = 7
+        maxcol = 6
+        maxrow = 6
         win = 7
         for x in range(0, 7):
             player_coords(
