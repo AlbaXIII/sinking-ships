@@ -232,7 +232,10 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     print(f"\n{username}'s turn to attack!\n")
     # Default to success to add to hit counter
     impact = 0
-
+    print("Comp Map")
+    comp_map.draw()
+    print("Dummy Map")
+    dummy_map.draw()
     try:
 
         col = int(input("Enter your attack column: "))
@@ -244,6 +247,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             check_hit_player(comp_map, dummy_map, username, attempts)
 
         elif comp_map[col, row] == "B":
+            print(Fore.BLUE + f"\n{username} attack {col},{row}!" + Style.RESET_ALL)
             # Hit message for successful attack, using Colorama
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             # Print attack to dummy board for user visual
@@ -259,7 +263,8 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
 
         else:
             # Miss message for unsuccessful attack
-            print(Fore.RED + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
+            print(Fore.BLUE + f"\n{username} attack {col},{row}!" + Style.RESET_ALL)
+            print(Fore.BLUE + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
             print("Enemy board:")
             dummy_map.draw()
@@ -272,14 +277,12 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         # Validation for non-integer input
         print(Fore.RED + "Please enter a number!" + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
-        impact = 0
         # Specific error for board out of bounds integers
     except board.Board.OutOfBoundsError:
         print(
             Fore.RED + "Please select a coordinate within game bounds!"
             + Style.RESET_ALL)
         check_hit_player(comp_map, dummy_map, username, attempts)
-        impact = 0
 
     return impact
 
@@ -289,40 +292,35 @@ def check_hit_comp(player_map, username, maxcol, maxrow, c_attempts):
     Function to check if player hit on comp_board is successful
     """
 
+    print("\nThe Squid are closing in...")
     # Same as player attack, assume hit by default
-    impact = 1
+    impact = 0
 
     # Random integers called for attack on player board within maxcol/row
     col = randrange(1, maxcol)
     row = randrange(1, maxrow)
 
     if player_map[row, col] == "B" and ((row, col)) not in c_attempts:
-        print(Fore.GREEN + "\nOh no! They got us!\n" + Style.RESET_ALL)
+        print(Fore.RED + "\nOH NO! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         # Display player board
         player_map.draw()
         c_attempts.append((col, row))
-    # Placeholder method of stopping repeated Computer attempts on same cell
-        print(c_attempts)
+        print(f"Computer's attempted attacks - {c_attempts}\n")
+        impact = 1
     elif ((col, row)) in c_attempts:
-        impact = 0
-        print(
-            Fore.RED +
-            "\nThe squid are biding their time...\n" +
-            Style.RESET_ALL)
-        print(c_attempts)
+        check_hit_comp(player_map, username, maxcol, maxrow, c_attempts)
 
     else:
-        print(Fore.RED + "Not even close!\n" + Style.RESET_ALL)
+        print(Fore.BLUE + "Not even close!\n" + Style.RESET_ALL)
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         print(f"{username}'s board: ")
         c_attempts.append((col, row))
         player_map.draw()
-        impact = 0
-        print(c_attempts)
+        print(f"Computer's attempted attacks - {c_attempts}\n")
 
     return impact
 
