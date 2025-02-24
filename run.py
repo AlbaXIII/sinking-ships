@@ -8,76 +8,27 @@ ships = ["B"]
 hit = ["X"]
 miss = ["O"]
 
-
-def user_sea():
-    """
-    function to fill empty board with 'sea' icons for user board
-    """
-    import random
-    while True:
-        yield random.choice("~")
-
-
-def comp_sea():
-    """
-    function to fill empty board with 'sea' icons for computer and dummy board
-    """
-    import random
-    while True:
-        yield random.choice("-")
-
-
 # define small/medium/large user boards
-# & populate grid with user_sea background
 user_small = board.Board((6, 6))
-# user_small.populate(user_sea())
-user_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
-user_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
 
 user_med = board.Board((8, 8))
-# user_med.populate(user_sea())
-user_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
-user_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
 
 user_large = board.Board((10, 10))
-# user_large.populate(user_sea())
-user_large.populate("0123456789", user_large.iterline((0, 0), (1, 0)))
-user_large.populate("123456789", user_large.iterline((0, 1), (0, 1)))
 
-# define computer board size & populate grid with comp_sea background
+# define computer board size
 comp_small = board.Board((6, 6))
-# comp_small.populate(comp_sea())
-comp_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
-comp_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
 
 comp_med = board.Board((8, 8))
-# comp_med.populate(comp_sea())
-comp_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
-comp_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
 
 comp_large = board.Board((10, 10))
-# comp_large.populate(comp_sea())
-comp_large.populate("0123456789", user_large.iterline((0, 0), (1, 0)))
-comp_large.populate("123456789", user_large.iterline((0, 1), (0, 1)))
-
 
 # define small/medium/large dummy boards
-# & populate grid with comp_sea background
 # dummy board for visual of user attack without showing comp ship positions
 dummy_small = board.Board((6, 6))
-# dummy_small.populate(comp_sea())
-dummy_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
-dummy_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
 
 dummy_med = board.Board((8, 8))
-# dummy_med.populate(comp_sea())
-dummy_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
-dummy_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
 
 dummy_large = board.Board((10, 10))
-# dummy_large.populate(comp_sea())
-dummy_large.populate("0123456789", user_large.iterline((0, 0), (1, 0)))
-dummy_large.populate("123456789", user_large.iterline((0, 1), (0, 1)))
 
 
 def create_user():
@@ -109,6 +60,16 @@ def choose_map(
 
         map_size = input("Please choose a map size - [S/M/L]\n")
         if map_size in ["S", "s"]:
+
+            user_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
+            user_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
+
+            comp_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
+            comp_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
+
+            dummy_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
+            dummy_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
+
             print("\nSmall map selected!\n")
             print("\nYou have 5 ships!\n")
             print("------------")
@@ -116,14 +77,21 @@ def choose_map(
                 Fore.BLUE + "\nPlease choose coordinates from 1 to 5!\n"
                 + Style.RESET_ALL)
             print(f"{username}'s board")
+
             user_small.draw()
             player_map = user_small
-            comp_map = comp_small
-            dummy_map = dummy_small
-            return player_map
-            return comp_map
 
         elif map_size in ["M", "m"]:
+
+            user_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
+            user_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
+
+            comp_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
+            comp_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
+
+            dummy_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
+            dummy_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
+
             print("\nMedium map selected!\n")
             print("\nYou have 8 ships!\n")
             print("------------")
@@ -133,12 +101,24 @@ def choose_map(
             print(f"{username}'s board")
             user_med.draw()
             player_map = user_med
-            comp_map = comp_med
-            dummy_map = dummy_med
-            return player_map
-            return comp_map
 
         elif map_size in ["L", "l"]:
+
+            user_large.populate("0123456789",
+                                user_large.iterline((0, 0), (1, 0)))
+            user_large.populate("123456789",
+                                user_large.iterline((0, 1), (0, 1)))
+
+            comp_large.populate("0123456789",
+                                user_large.iterline((0, 0), (1, 0)))
+            comp_large.populate("123456789",
+                                user_large.iterline((0, 1), (0, 1)))
+
+            dummy_large.populate("0123456789",
+                                 user_large.iterline((0, 0), (1, 0)))
+            dummy_large.populate("123456789",
+                                 user_large.iterline((0, 1), (0, 1)))
+
             print("\nLarge map selected!\n")
             print("\nYou have 10 ships!\n")
             print("------------")
@@ -148,13 +128,11 @@ def choose_map(
             print(f"{username}'s board")
             user_large.draw()
             player_map = user_large
-            comp_map = comp_large
-            dummy_map = dummy_large
-            return player_map
-            return comp_map
 
         else:
             print("What! Please select S/M/L")
+
+        return player_map
 
 
 def player_coords(player_map, user_small, user_med, user_large, occupied,
@@ -239,7 +217,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     dummy_map.draw()
     try:
 
-        col = int(input("Enter your attack column: "))
+        col = int(input("\nEnter your attack column: "))
         row = int(input("Enter your attack row: "))
 
         time.sleep(1)
@@ -247,7 +225,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
         if ((col, row)) in attempts:
             # Check if in attempts array before hit check
             print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
-            check_hit_player(comp_map, dummy_map, username, attempts)
+            return check_hit_player(comp_map, dummy_map, username, attempts)
 
         elif comp_map[col, row] == "B":
             print(Fore.BLUE + f"\n{username} attack {col},{row}!"
@@ -298,14 +276,14 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
     Function to check if player hit on comp_board is successful
     """
 
+    time.sleep(1)
+
     # Same as player attack, assume hit by default
     impact = 1
 
     # Random integers called for attack on player board within maxcol/row
     col = randrange(1, comp_maxcol)
     row = randrange(1, comp_maxrow)
-
-    time.sleep(1)
 
     if player_map[row, col] == "B":
         print(Fore.RED + "\nOH NO! They got us!\n" + Style.RESET_ALL)
@@ -318,10 +296,10 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         print(f"Computer's attempted attacks - {c_attempts}\n")
         # impact = 1
     elif ((col, row)) in c_attempts:
-        print("Idiot Squid")
+        # print("Idiot Squid")
         impact = 0
-        check_hit_comp(player_map, username,
-                       comp_maxcol, comp_maxrow, c_attempts)
+        return check_hit_comp(player_map, username, comp_maxcol,
+                              comp_maxrow, c_attempts)
 
     else:
         print(Fore.BLUE + "Not even close!\n" + Style.RESET_ALL)
@@ -352,8 +330,8 @@ def game_loop(
         # Add up return from check hit function for winning score
         player_hits += check_hit_player(
             comp_map, dummy_map, username, attempts)
-        print(f"{username} score:")
-        print(player_hits)
+        print(f"{username} score: {player_hits}!")
+        print("\nThe squid are closing in...!\n")
         if player_hits == win:
             print(Fore.BLUE + "\nGAME OVER!\n" + Style.RESET_ALL)
             print(
@@ -365,8 +343,7 @@ def game_loop(
         # Add up return from computer check hit function for winning score
         comp_hits += check_hit_comp(
             player_map, username, comp_maxcol, comp_maxrow, c_attempts)
-        print("Computer score:")
-        print(comp_hits)
+        print(f"Squid score: {comp_hits}!")
         if comp_hits == win:
             print(Fore.BLUE + "\nGAME OVER!\n" + Style.RESET_ALL)
             print(
@@ -376,22 +353,26 @@ def game_loop(
             break
 
 
-def game_restart():
+def game_restart(player_map, comp_map, dummy_map):
     """
     Function to prompt user to play again or break loop
     """
 
+    player_map.clear()
+    comp_map.clear()
+    dummy_map.clear()
+
     restart = input("\nWould you like to play again? (Y/N)\n")
 
     if restart in ["Y", "y"]:
-        play_game()
+        return play_game()
 
     elif restart in ["N", "n"]:
         print(Fore.BLUE + "Thank you for playing!" + Style.RESET_ALL)
-    # Validating input to only Y or N, or raise a value error
+    # Validating input to only Y or N, or raise an error
     else:
         print("Please enter Y/N!")
-        game_restart()
+        return game_restart()
 
 
 def play_game():
@@ -508,7 +489,7 @@ def play_game():
         username, attempts, c_attempts,
         win, maxcol, maxrow, comp_maxcol, comp_maxrow)
     # Restart game when winnner
-    game_restart()
+    game_restart(player_map, comp_map, dummy_map)
 
 
 play_game()
