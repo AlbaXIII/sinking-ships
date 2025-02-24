@@ -38,17 +38,31 @@ After the username is entered, flavor text will describe the "setting" of the ga
 
 There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by an anterior function that populates each 'cell' of the board with the tilde ("~") key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling too visually empty.
 
+- **Resubmission Update**
+
+In order to improve user interaction with the board, the left and right axis have been numbered - this will allow users to more accurately know what cells they are attacking when it comes to their turn. 
+
 ![User board display](readme-images/board-display.PNG)
+
+IMAGE
 
 To differentiate between the boards, the computer board is populated by the dash ("-") symbol. This is to help the user know which board is being shown, especially important on the smaller display afforded by the Heroku app.
 
 - **Ship placement**
 
-The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string.
+The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string. 
+
+- **Resubmission Update**
+
+Combined with the change to the board layout, the function for both player and computer picking of coordinates has been adjusted to not allow any placement of ships across those numbered cells. 
 
 ![Player coordination input](readme-images/player-coords.PNG)
 
 Once selected, the user can see the end result of their formation choice. The aim here was for the board to be called immediately to give an optical reminder to the player and keep the flow of information coming.
+
+- **Resubmission Update**
+
+As well as the reminder of the user formation at the end of coordinate selection, there is now a print statement for each player coordinate - colored green for the 'User' theme. 
 
 ![Player board display with ships input](readme-images/player-board.PNG)
 
