@@ -76,7 +76,7 @@ Misses are displayed on the board as a O symbol. This is a point of differentiat
 
 ![Game board midgame](readme-images/board-midgame.PNG)
 
-Attacks from each combatant are seperated by use of Pythons time package to insert some time between inputs, this is purely to expand the game experience and build tension between turns.
+Attacks from each combatant are seperated by use of Pythons time package to insert some breathing space between inputs, this is purely to expand the game experience and build tension between turns.
 
 ![Wait function](readme-images/wait-function.PNG)
 
@@ -94,7 +94,7 @@ The first step of development of this project was to map out the functions that 
 
 With that in mind, the decision was taken early on to utilise the board package to simplify the process of designing the maps, and to provide them with a visual fidelity that I thought would work well for the user.
 
-To that end, the boards are declared at the top of the code as global variables to be passed around through multiple functions. Three sets of three were needed for the user, opponent, and a visual dummy board to give ocular feedback to the user for hits or misses.
+To that end, the boards are declared at the top of the code as global variables to be passed around through multiple functions. Three sets of three were needed for the user, opponent, and a visual dummy board to give feedback to the user for hits or misses.
 
 The functions are then roughly divided into initial user input and game loop, with initial user input for username & placement of ships, and game loop handling the attacking of the computer board & defence of the users'.
 
@@ -160,9 +160,13 @@ User can only enter Y/y/N/n.
 
 ### **PEP8 (Pycodestyle)**
 
-No major issues presented using PEP8/Pycodestyle linter.
+No major issues presented using PEP8/Pycodestyle in-IDE linter.
 
 ![Pycodestyle check image](readme-images/pycodestyle.png)
+
+No issues present in the CI Python linter.
+
+![CI Python linter results](readme-images/ci-python-linter.png)
 
 ## **Technology and additional software used**
 - Python3

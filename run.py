@@ -291,14 +291,14 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
     row = randrange(1, comp_maxrow)
 
     if player_map[row, col] == "B":
-        print(Fore.RED + "\nOH NO! They got us!\n" + Style.RESET_ALL)
+        print(Fore.RED + "OH NO! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
         print(Fore.BLUE + f"{username}'s board: " + Style.RESET_ALL)
         # Display player board
         player_map.draw()
         c_attempts.append((col, row))
-        print(f"Computer's attempted attacks - {c_attempts}\n")
+        print(f"Squid attempted attacks - {c_attempts}\n")
         # impact = 1
     elif ((col, row)) in c_attempts:
         # print("Idiot Squid")
@@ -314,7 +314,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         c_attempts.append((col, row))
         player_map.draw()
         impact = 0
-        print(f"Computer's attempted attacks - {c_attempts}\n")
+        print(f"Squid attempted attacks - {c_attempts}\n")
         return impact
 
     return impact
@@ -391,7 +391,7 @@ def play_game():
     print("------------------\n")
 
     username = create_user()
-    # Flavor text for "Story" background
+    # Flavor text for game setting
     print("\nI am the great Admiral Dolvalski!\n")
     print("Look sharp, for we are the sole protectors of this island!\n")
     print("Red alert! Schools of deadly squid are attacking!\n")
