@@ -131,6 +131,11 @@ def choose_map(
 
         else:
             print("What! Please select S/M/L")
+            return choose_map(
+                    username, user_small, user_med, user_large,
+                    comp_small, comp_med, comp_large,
+                    dummy_small, dummy_med, dummy_large
+                        )
 
         return player_map
 
@@ -153,7 +158,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
                     ships, player_map.iterline((row, col), (1, 0)))
                 # Add to occupied set to avoid repetition
                 occupied.add((row, col))
-                print(Fore.GREEN + f"\n Ship placed! - {row},{col} \n"
+                print(Fore.GREEN + f"\n Ship placed! - {row}, {col} \n"
                       + Style.RESET_ALL)
             # Validation for coordinates out of bounds
             else:
@@ -213,7 +218,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     impact = 1
     print("Comp Map")
     comp_map.draw()
-    print("Dummy Map")
+    print(Fore.BLUE + "Squid Map" + Style.RESET_ALL)
     dummy_map.draw()
     try:
 
@@ -228,7 +233,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             return check_hit_player(comp_map, dummy_map, username, attempts)
 
         elif comp_map[col, row] == "B":
-            print(Fore.BLUE + f"\n{username} attack {col},{row}!"
+            print(Fore.BLUE + f"\n{username} attack {col}, {row}!"
                   + Style.RESET_ALL)
             # Hit message for successful attack, using Colorama
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
@@ -245,7 +250,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
 
         else:
             # Miss message for unsuccessful attack
-            print(Fore.BLUE + f"\n{username} attack {col},{row}!"
+            print(Fore.BLUE + f"\n{username} attack {col}, {row}!"
                   + Style.RESET_ALL)
             print(Fore.BLUE + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
@@ -289,7 +294,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         print(Fore.RED + "\nOH NO! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
-        print(f"{username}'s board: ")
+        print(Fore.BLUE + f"{username}'s board: " + Style.RESET_ALL)
         # Display player board
         player_map.draw()
         c_attempts.append((col, row))
@@ -372,7 +377,7 @@ def game_restart(player_map, comp_map, dummy_map):
     # Validating input to only Y or N, or raise an error
     else:
         print("Please enter Y/N!")
-        return game_restart()
+        return game_restart(player_map, comp_map, dummy_map)
 
 
 def play_game():
@@ -452,7 +457,7 @@ def play_game():
                 c_occupied, comp_maxcol, comp_maxrow)
 
     # Coordinates review for player
-    print(Fore.GREEN + f"{username} coordinates - {occupied}")
+    print(Fore.GREEN + f"{username} coordinates - {occupied}\n")
     print(f"{username} formation confirmed!" + Style.RESET_ALL)
     # Formation review for player
     player_map.draw()

@@ -14,10 +14,10 @@ Based primarily on the classic pen-and-paper game Battleships, Sinking Ships tak
 
 1. Run the program from the host site on [Heroku](https://sinking-ships-ec79824176fc.herokuapp.com/).
 2. Enter your username when prompted.
-3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here, as well as board range.
+3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here, as well as range of attack coordinates.
 4. Check over your board, and use the prompt to position your ships by using columns and rows - ships are signified by the string "B" - and see the result of your board when finished.
 5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding cell of the board. Misses are marked by a "O", and a hit by an "X"!
-6. When all of your opponents squid are sunk, or your own ships, you win or lose!
+6. When all of the squid are sunk - or your own ships have been defeated - you win or lose!
 7. Play again or quit the game.
 
 ## **Target users**
@@ -36,51 +36,51 @@ After the username is entered, flavor text will describe the "setting" of the ga
 
 - **Map size & board**
 
-There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the code structure. The board itself is populated by an anterior function that populates each 'cell' of the board with the tilde ("~") key - this was chosen to represent the sea waves and give a visual pop to the game space, to avoid it feeling too visually empty.
+There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the structure. The board's north and west axis are numbered from 0 to the max variable number, allowing for the player to accurately and intentionally place their ships across the board.
 
-- **Resubmission Update**
+![User map selection](readme-images/map-selection.PNG)
 
-In order to improve user interaction with the board, the left and right axis have been numbered - this will allow users to more accurately know what cells they are attacking when it comes to their turn. 
-
-![User board display](readme-images/board-display.PNG)
-
-IMAGE
-
-To differentiate between the boards, the computer board is populated by the dash ("-") symbol. This is to help the user know which board is being shown, especially important on the smaller display afforded by the Heroku app.
+![User board display](readme-images/board-new.PNG)
 
 - **Ship placement**
 
-The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string. 
+The next stage in the application is for the user to select the coordinates for their ships. This function is run a set amount of times depending on map size and will populate the board with the ship symbol, which is a "B" string. Each input by the user is accompanied by input validation - so it is impossible for the user to enter non-number characters or re-apply ships to occupied cells. Each user position is also tied into a print statement, allowing each player to get confirmation of each placement.
 
-- **Resubmission Update**
+![Player coordination input](readme-images/coordinate-confirmation.PNG)
 
-Combined with the change to the board layout, the function for both player and computer picking of coordinates has been adjusted to not allow any placement of ships across those numbered cells. 
+Once selection is completed, the user can see the end result of their formation choice, as well as a array of the board cells chosen. The aim here was for the board to be called immediately to give an optical reminder to the player and keep the flow of information coming, and for the array to give an numerical reminder of the positions chosen.
 
-![Player coordination input](readme-images/player-coords.PNG)
-
-Once selected, the user can see the end result of their formation choice. The aim here was for the board to be called immediately to give an optical reminder to the player and keep the flow of information coming.
-
-- **Resubmission Update**
-
-As well as the reminder of the user formation at the end of coordinate selection, there is now a print statement for each player coordinate - colored green for the 'User' theme. 
-
-![Player board display with ships input](readme-images/player-board.PNG)
+![Player board display with ships input](readme-images/coordinate-feedback.PNG)
 
 The application will then populate the computers map with a function that uses Python3's built-in random interger generator to initialise two random numbers, which is then used to populate the computer board. At the same time, there is a dummy board being generated and populated in the same cells, which is used to give a visual for the players attacks without revealing the location of the computers other ships.
 
+- **Game Rules**
+
+Before the game starts, the game rules have been clearly stated both in the setting of the player coordinates per map and then as a standalone paragraph before the game loop begins. Therefore the user will be able to keep across what each icon means in a more intuitive way, and not be confused per turn as to which coordinates have already been accessed by the check_hit function.
+
+![Game rules print statement](readme-images/game-rules.PNG)
+
 - **Attacking & game loop**
 
-The game will then prompt the user for their first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. 
+The game will then prompt the user for their first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. The attacks are followed by a confirmation message printed to the terminal, and after each turn the user can see the array of occupied cells as well as the status of their own and opposition board.
 
-![Player hit image](readme-images/player-attack-success.PNG)
+![Player attack hit image](readme-images/attack-hit.PNG)
+
+![Player attack miss image](readme-images/attack-miss.PNG)
 
 Concurrently, the computer attack function will check for a hit on the player board, again utilising the randrange feature to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
 
+![Squid attack hit image](readme-images/squid-hit.PNG)
+
 Misses are displayed on the board as a O symbol. This is a point of differentiation so the player can determine the state of their board and from there be able to make an informed decision on where to attack next.
 
-![Computer hit image](readme-images/enemy-attack-success.PNG)
+![Game board midgame](readme-images/board-midgame.PNG)
 
-When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beginning another play loop.
+Attacks from each combatant are seperated by use of Pythons time package to insert some time between inputs, this is purely to expand the game experience and build tension between turns.
+
+![Wait function](readme-images/wait-function.PNG)
+
+When the game is completed, the player will be presented with an option to either break the game loop and leave the application or play again, starting the main play game function again and beginning another play loop. Incorperated into this function is a board.clear function for each version of the board to stop the duplication of boards across all games.
 
 ![Win message image](readme-images/win-message.PNG)
 
@@ -100,7 +100,7 @@ The functions are then roughly divided into initial user input and game loop, wi
 
 Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, attempted attacks, arrays managing occupied cells/attempts and the win threshold.
 
-When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. Whilst I am satisfied that the lion's share of the project is constructed in a readable manner, there are sections that remain that I believe could have been better incorperated with more development time.
+When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. 
 
 ## **Future features**
 
@@ -118,7 +118,7 @@ Following on from ship variants, the multi-celled ships will have the ability to
 
 - **Wider board**
 
-In providing the option for multiple board sizes, the game naturally incurs a lot of scrolling. In future releases the project would look to have the boards expand out horizontally to alleviate this aspect.
+In providing the option for multiple board sizes, the game naturally incurs a lot of scrolling. In future releases the project would look to have the boards expand out horizontally to alleviate this aspect, or at the very least display the boards side-by-side.
 
 ## **Testing**
 
@@ -126,33 +126,35 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 **Username validation**
 
-![Username validation image](readme-images/username-validation.png)
+![Username validation image](readme-images/username-empty-validation.png)
 
 User cannot leave input prompt empty.
 
 **Map size validation**
 
-![Map size validation image](readme-images/map-size-validation.PNG)
+![Map size validation image](readme-images/map-size-confirmation.png)
 
 User can only enter S/s/M/m/L/l.
 
 **Player coordination validation**
 
-![Player coordinates validation image](readme-images/player-coord-validation.PNG)
+![Player coordinates validation image](readme-images/attack-coordinate-confirmation.png)
 
 User cannot enter integers out of bounds, invalid characters or leave blank.
 
 **Player attack validation**
 
-![Player attack validation image](readme-images/player-attack-validation.PNG)
+![Player attack validation image](readme-images/attack-validation-bounds.png)
 
-![Player repeat coordinates image](readme-images/player-repeat-validation.PNG)
+![Player empty coordinates image](readme-images/attack-validation-empty.png)
+
+![Player repeat coordinates image](readme-images/attack-validation-repeat.png)
 
 User cannot enter integers out of bounds, invalid characters, leave blank or repeat attack coordinates. 
 
 **Restart game validation**
 
-![Repeat game validation image](readme-images/repeat-game-validation.PNG)
+![Repeat game validation image](readme-images/restart-validation.png)
 
 User can only enter Y/y/N/n.
 
@@ -160,7 +162,7 @@ User can only enter Y/y/N/n.
 
 No major issues presented using PEP8/Pycodestyle linter.
 
-![Pycodestyle check image](readme-images/pycodestyle-check.PNG)
+![Pycodestyle check image](readme-images/pycodestyle.png)
 
 ## **Technology and additional software used**
 - Python3
@@ -170,6 +172,8 @@ No major issues presented using PEP8/Pycodestyle linter.
         - Used to implement a general board structure in order to simplify the actual process of generating a game space.
     - [colorama](https://pypi.org/project/colorama/)
         - Fore aspect of Colorama used to provide a pop of color to increase visual enjoyment for the user.
+    - [time]([https://docs.python.org/3/library/time.html])
+        - Sleep functionality used to suspend execution of calling next line of game for a developer-specified number of seconds.
     - [PEP8 (aka pycodestyle)](https://peps.python.org/pep-0008/)
         - Main linter used to list any abnormalities in code structure and layout.
         
@@ -196,20 +200,33 @@ This was because I had included the check of the set in the population check sec
                         csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
 
+- When finishing the game loop and starting a new game, the restart game function would not clear the user board variable from the last game. So when the user would start the game again, they would not be able to use new coordinates. This was because all boards were not utilising the .clear function of the package. In order to rectify this error, I moved the .populate function of the boards (assignment of numbers on board axis') into the choose map function, and added a .clear call into the top of the restart function.
+
+        def game_restart(player_map, comp_map, dummy_map):
+            """
+            Function to prompt user to play again or break loop
+            """
+
+            player_map.clear()
+            comp_map.clear()
+            dummy_map.clear()
+
+            restart = input("\nWould you like to play again? (Y/N)\n")
+
+            if restart in ["Y", "y"]:
+                return play_game()
+
+            elif restart in ["N", "n"]:
+                print(Fore.BLUE + "Thank you for playing!" + Style.RESET_ALL)
+            # Validating input to only Y or N, or raise an error
+            else:
+                print("Please enter Y/N!")
+                return game_restart()
+
+
+
+
 ### **Unfixed Bugs**
-
-- On the whole the use of the board package was beneficial to this project, however I did experience a fair amount of graphical & population glitches whilst generating the game maps. This could be linked to the code being quite heavy on memory, especially in early development, but eased off after a period of work. However, time constraints mean I cannot completely guarantee the interation between the code & board being airtight. Re-running the application fixes the issues in all cases.
-
-- During the closing stages of development, I worked quite hard on condensing the code to avoid instances of repetition, and the code being hard to read. However in doing so I encountered an issue with the interaction between the computers hit score and stopping the randrange function from repeatedly attacking the same coordinates, and adding more "ghost" score to the total. Time ran out before I could satisfactorily rectify this, so the placeholder solution used was to add a line of flavor text which 'skipped' the computer turn whilst leaving the score untouched.
-
-        elif ((col, row)) in c_attempts:
-            impact = 0
-            print(
-                Fore.RED +
-                "\nThe squid are biding their time..." +
-                Style.RESET_ALL)
-
-Whilst this is by no means a perfect solution, the 'story' of the game having the computer opponent being squid hopefully allows a modicum more leeway and a humerous touch (depending on one's sense of humour).
 
 - No other known bugs at time of submission.
 
