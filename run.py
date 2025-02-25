@@ -60,7 +60,7 @@ def choose_map(
 
         map_size = input("Please choose a map size - [S/M/L]\n")
         if map_size in ["S", "s"]:
-
+            # populate board axis with numbers for small boards
             user_small.populate("012345", user_small.iterline((0, 0), (1, 0)))
             user_small.populate("12345", user_small.iterline((0, 1), (0, 1)))
 
@@ -82,7 +82,7 @@ def choose_map(
             player_map = user_small
 
         elif map_size in ["M", "m"]:
-
+            # populate board axis with numbers for medium boards
             user_med.populate("01234567", user_med.iterline((0, 0), (1, 0)))
             user_med.populate("1234567", user_med.iterline((0, 1), (0, 1)))
 
@@ -103,7 +103,7 @@ def choose_map(
             player_map = user_med
 
         elif map_size in ["L", "l"]:
-
+            # populate board axis with numbers for large boards
             user_large.populate("0123456789",
                                 user_large.iterline((0, 0), (1, 0)))
             user_large.populate("123456789",
@@ -158,6 +158,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
                     ships, player_map.iterline((row, col), (1, 0)))
                 # Add to occupied set to avoid repetition
                 occupied.add((row, col))
+                # Comfirmation of placed coordinates
                 print(Fore.GREEN + f"\n Ship placed! - {row}, {col} \n"
                       + Style.RESET_ALL)
             # Validation for coordinates out of bounds
@@ -170,7 +171,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
                     player_map, user_small, user_med, user_large,
                     occupied, maxcol, maxrow)
                 break
-        # Validation for invalid data types
+        # Defensive programming for invalid data types
         except ValueError:
             print(
                 Fore.RED +
@@ -189,7 +190,7 @@ def comp_coords(comp_map, comp_small, comp_med, comp_large,
     """
     Function for computer ship placement on all board sizes
     """
-    # Random integer range defined by maxcol/row
+    # Random integer range defined by comp_maxcol/row
     while True:
         for ship in ships:
             col = randrange(1, comp_maxcol)
@@ -216,15 +217,13 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
     print(f"\n{username}'s turn to attack!\n")
     # Default to success to add to hit counter
     impact = 1
-    print("Comp Map")
-    comp_map.draw()
     print(Fore.BLUE + "Squid Map" + Style.RESET_ALL)
     dummy_map.draw()
     try:
-
+        # Input prompt for user attack
         col = int(input("\nEnter your attack column: "))
         row = int(input("Enter your attack row: "))
-
+        # Suspend function for more digestible game flow
         time.sleep(1)
 
         if ((col, row)) in attempts:
@@ -240,7 +239,6 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             # Print attack to dummy board for user visual
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
             print("Enemy board:")
-            # impact = 1
             # Display dummy board
             dummy_map.draw()
             # Add chosen integers to attempts array
@@ -254,6 +252,7 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
                   + Style.RESET_ALL)
             print(Fore.BLUE + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
+            # Display dummy board
             print("Enemy board:")
             dummy_map.draw()
             attempts.append((col, row))
@@ -280,13 +279,13 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
     """
     Function to check if player hit on comp_board is successful
     """
-
+    # Suspend function for more digestible game flow
     time.sleep(1)
 
     # Same as player attack, assume hit by default
     impact = 1
 
-    # Random integers called for attack on player board within maxcol/row
+    # Random integers called for attack on player board within comp_maxcol/row
     col = randrange(1, comp_maxcol)
     row = randrange(1, comp_maxrow)
 
@@ -299,9 +298,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         player_map.draw()
         c_attempts.append((col, row))
         print(f"Squid attempted attacks - {c_attempts}\n")
-        # impact = 1
     elif ((col, row)) in c_attempts:
-        # print("Idiot Squid")
         impact = 0
         return check_hit_comp(player_map, username, comp_maxcol,
                               comp_maxrow, c_attempts)
@@ -310,6 +307,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         print(Fore.BLUE + "Not even close!\n" + Style.RESET_ALL)
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
+        # Display user board
         print(f"{username}'s board: ")
         c_attempts.append((col, row))
         player_map.draw()
@@ -362,7 +360,7 @@ def game_restart(player_map, comp_map, dummy_map):
     """
     Function to prompt user to play again or break loop
     """
-
+    # Clear all boards for repopulation on next game loop
     player_map.clear()
     comp_map.clear()
     dummy_map.clear()
@@ -462,7 +460,7 @@ def play_game():
     # Formation review for player
     player_map.draw()
 
-    # Squid formation breather
+    # Squid formation coordinates with breathers
     print("\nSquid formation assembling...")
     time.sleep(1)
     print(".")
