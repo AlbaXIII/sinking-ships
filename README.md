@@ -126,35 +126,35 @@ In providing the option for multiple board sizes, the game naturally incurs a lo
 
 **Username validation**
 
-![Username validation image](readme-images/username-empty-validation.png)
+![Username validation image](readme-images/username-empty-validation.PNG)
 
 User cannot leave input prompt empty.
 
 **Map size validation**
 
-![Map size validation image](readme-images/map-size-confirmation.png)
+![Map size validation image](readme-images/map-size-confirmation.PNG)
 
 User can only enter S/s/M/m/L/l.
 
 **Player coordination validation**
 
-![Player coordinates validation image](readme-images/attack-coordinate-confirmation.png)
+![Player coordinates validation image](readme-images/attack-coordinate-confirmation.PNG)
 
 User cannot enter integers out of bounds, invalid characters or leave blank.
 
 **Player attack validation**
 
-![Player attack validation image](readme-images/attack-validation-bounds.png)
+![Player attack validation image](readme-images/attack-validation-bounds.PNG)
 
-![Player empty coordinates image](readme-images/attack-validation-empty.png)
+![Player empty coordinates image](readme-images/attack-validation-empty.PNG)
 
-![Player repeat coordinates image](readme-images/attack-validation-repeat.png)
+![Player repeat coordinates image](readme-images/attack-validation-repeat.PNG)
 
 User cannot enter integers out of bounds, invalid characters, leave blank or repeat attack coordinates. 
 
 **Restart game validation**
 
-![Repeat game validation image](readme-images/restart-validation.png)
+![Repeat game validation image](readme-images/restart-validation.PNG)
 
 User can only enter Y/y/N/n.
 
@@ -162,11 +162,11 @@ User can only enter Y/y/N/n.
 
 No major issues presented using PEP8/Pycodestyle in-IDE linter.
 
-![Pycodestyle check image](readme-images/pycodestyle.png)
+![Pycodestyle check image](readme-images/pycodestyle.PNG)
 
 No issues present in the CI Python linter.
 
-![CI Python linter results](readme-images/ci-python-linter.png)
+![CI Python linter results](readme-images/ci-python-linter.PNG)
 
 ## **Technology and additional software used**
 - Python3
