@@ -64,13 +64,13 @@ Before the game starts, the game rules have been clearly stated both in the sett
 
 The game will then prompt the user for their first attack. The input of the function is identical to the coordination of the defence - ie entering an attack column and row. The game will then interpret the input depending on the fill of the opposition board - if the cell contains a ship, an X symbol will be printed onto the dummy board which is then displayed to the player. The attacks are followed by a confirmation message printed to the terminal, and after each turn the user can see the array of occupied cells as well as the status of their own and opposition board.
 
-![Player attack hit image](readme-images/attack-hit.PNG)
+![Player attack hit image](readme-images/attack-hit-user.PNG)
 
 ![Player attack miss image](readme-images/attack-miss.PNG)
 
 Concurrently, the computer attack function will check for a hit on the player board, again utilising the randrange feature to pull integers within the boards bounds and enter them into the function, which then checks the cell population.
 
-![Squid attack hit image](readme-images/squid-hit.PNG)
+![Squid attack hit image](readme-images/squid-hit-user.PNG)
 
 Misses are displayed on the board as a O symbol. This is a point of differentiation so the player can determine the state of their board and from there be able to make an informed decision on where to attack next.
 
@@ -137,6 +137,8 @@ User cannot leave input prompt empty.
 User can only enter S/s/M/m/L/l.
 
 **Player coordination validation**
+
+![Player coordinates bounds validation image](readme-images/attack-coordinate-bounds.PNG)
 
 ![Player coordinates validation image](readme-images/attack-coordinate-confirmation.PNG)
 
