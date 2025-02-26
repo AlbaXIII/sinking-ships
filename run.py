@@ -295,7 +295,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
     col = randrange(1, comp_maxcol)
     row = randrange(1, comp_maxrow)
 
-    if player_map[row, col] == "B":
+    if player_map[col, row] == "B":
         print(Fore.RED + "OH NO! They got us!\n" + Style.RESET_ALL)
         # Add hit marker to player board
         player_map.populate(hit, player_map.iterline((col, row), (1, 0)))
