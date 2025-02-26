@@ -202,7 +202,7 @@ def comp_coords(comp_map, comp_small, comp_med, comp_large,
             # Populate map with ships
             else:
                 comp_map.populate(
-                    ships, comp_map.iterline((row, col), (1, 0)))
+                    ships, comp_map.iterline((col, row), (1, 0)))
                 # Add to computer occupied set
                 c_occupied.add((row, col))
                 break
