@@ -314,7 +314,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         # Add miss marker to player board
         player_map.populate(miss, player_map.iterline((col, row), (1, 0)))
         # Display user board
-        print(f"{username}'s board: ")
+        print(Fore.BLUE + f"{username}'s board: " + Style.RESET_ALL)
         c_attempts.append((col, row))
         player_map.draw()
         impact = 0
