@@ -165,7 +165,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
             else:
                 print(
                     Fore.RED +
-                    "\nPlease select coordinates within game bounds!\n"
+                    "\nPlease select new coordinates within game bounds!\n"
                     + Style.RESET_ALL)
                 player_coords(
                     player_map, user_small, user_med, user_large,
