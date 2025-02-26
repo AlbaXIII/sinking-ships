@@ -17,7 +17,7 @@ Based primarily on the classic pen-and-paper game Battleships, Sinking Ships tak
 3. Choose your map size from small, medium or large - the number of 'ships' at your disposal is notified to the user here, as well as range of attack coordinates.
 4. Check over your board, and use the prompt to position your ships by using columns and rows - ships are signified by the string "B" - and see the result of your board when finished.
 5. Begin attacking your opponents board by supplying a column and row integer to prompt an attack on the corresponding cell of the board. Misses are marked by a "O", and a hit by an "X"!
-6. When all of the squid are sunk - or your own ships have been defeated - you win or lose!
+6. When all of the squid are defeated - or your own ships have been sunk - you win or lose!
 7. Play again or quit the game.
 
 ## **Target users**
@@ -36,7 +36,7 @@ After the username is entered, flavor text will describe the "setting" of the ga
 
 - **Map size & board**
 
-There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the structure. The board's north and west axis are numbered from 0 to the max variable number, allowing for the player to accurately and intentionally place their ships across the board.
+There are 3 sizes of map to select, with each increase in size providing more ships to place. This is accomplished by use of the board package (see technologies used), declaring a small, medium and large map as a global variable for both the computer and the user to interact with, and the code to call back to throughout the structure. The board's north and west axis are numbered from 0 to the max column/row variable number, allowing for the player to accurately and intentionally place their ships across the board.
 
 ![User map selection](readme-images/map-selection.PNG)
 
@@ -52,7 +52,7 @@ Once selection is completed, the user can see the end result of their formation 
 
 ![Player board display with ships input](readme-images/coordinate-feedback.PNG)
 
-The application will then populate the computers map with a function that uses Python3's built-in random interger generator to initialise two random numbers, which is then used to populate the computer board. At the same time, there is a dummy board being generated and populated in the same cells, which is used to give a visual for the players attacks without revealing the location of the computers other ships.
+The application will then populate the computers map with a function that uses Python3's built-in random integer generator to initialise two random numbers up to the defined edges of the board, which is then used to populate the computer board. At the same time, there is a dummy board being generated and populated in the same cells, which is used to give a visual for the players attacks without revealing the location of the computers other ships.
 
 - **Game Rules**
 
@@ -90,7 +90,7 @@ When the game is completed, the player will be presented with an option to eithe
 
 ![Function lucid chart map](readme-images/function-map.webp)
 
-The first step of development of this project was to map out the functions that I believed would be needed to create a game with the scope detailed by the project outline.
+The first step of development of this project was to map out the functions that I believed would be needed to create a game with the scope detailed by the project learning objectives.
 
 With that in mind, the decision was taken early on to utilise the board package to simplify the process of designing the maps, and to provide them with a visual fidelity that I thought would work well for the user.
 
@@ -100,7 +100,7 @@ The functions are then roughly divided into initial user input and game loop, wi
 
 Most of the paremeters for the game loop are declared in the main function and then passed into the main game loop - including map size, max column and row size, attempted attacks, arrays managing occupied cells/attempts and the win threshold.
 
-When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed. 
+When creating this project, the primary focus in my initial development time was to make sure that the innate functionality of all its constituent parts operate in a satisfactory manner. In the process of doing so, in its earliest incarnations, there was a lot of repeated code across the three map sizes that needed to be condensed, but the submitted project has more of a streamlined codebase. 
 
 ## **Future features**
 
@@ -110,7 +110,7 @@ When creating this project, the primary focus in my initial development time was
 
 - **Ship variants**
 
-Further versions of the game will give the user an ability to have an array of multi-celled ships rather than just the single string. This makes the game more interesting and tactical, and dampen the role of luck in a win or a loss. This feature was a casualty of time constraints during development.
+Further versions of the game will give the user an ability to have an array of multi-celled ships rather than just the single string. This makes the game more interesting and tactical, and dampen the role of luck in a win or a loss. 
 
 - **Diagonal positioning**
 
@@ -118,7 +118,7 @@ Following on from ship variants, the multi-celled ships will have the ability to
 
 - **Wider board**
 
-In providing the option for multiple board sizes, the game naturally incurs a lot of scrolling. In future releases the project would look to have the boards expand out horizontally to alleviate this aspect, or at the very least display the boards side-by-side.
+In providing the option for multiple board sizes, the game naturally incurs a lot of scrolling. In future releases the project would look to have the boards expand out horizontally to alleviate this aspect, or display the boards side-by-side.
 
 ## **Testing**
 
@@ -185,6 +185,8 @@ No issues present in the CI Python linter.
 
 ### **Development**
 
+**Color & Map Errors**
+
 - When starting the initialisation process for the game boards, the original idea was to have them populated by colored icons using the colorama package. However when using the syntax utilised elsewhere in the project for one-off color bursts;
 
             (Fore.BLUE + "~" + Style.RESET_ALL)
@@ -192,6 +194,8 @@ No issues present in the CI Python linter.
     The board would throw up a lot of character errors;
 
 ![Map errors image](readme-images/map-errors.PNG)
+
+**Repeat Coordinates**
 
 - In the player coordinate function, there is a subroutine to add the columns and rows selected to a set that is initialised in the main game function. However, when applying the same logic to the computer coordinates (to stop it from generating the same sets and populating the board over itself) the syntax used was causing the randrange element of the function to return the same numbers every time (1, 1).
 This was because I had included the check of the set in the population check section of the code, causing the generation to return the same numbers. Reworking the function to simplify the check fixed the error and allowed the generator to start returning random integers again;
@@ -203,6 +207,8 @@ This was because I had included the check of the set in the population check sec
                     else:
                         csmall.populate(ships, csmall.iterline((row, col), (1, 0)))
                     c_occupied.add((row, col))
+
+**Restart Function**
 
 - When finishing the game loop and starting a new game, the restart game function would not clear the user board variable from the last game. So when the user would start the game again, they would not be able to use new coordinates. This was because all boards were not utilising the .clear function of the package. In order to rectify this error, I moved the .populate function of the boards (assignment of numbers on board axis') into the choose map function, and added a .clear call into the top of the restart function.
 
@@ -227,12 +233,37 @@ This was because I had included the check of the set in the population check sec
                 print("Please enter Y/N!")
                 return game_restart()
 
+**Max Col/Row & Comp Mac Col/Row**
 
+- In creating a function that allowed the computer opponent to occupy spaces on the board I ran into a conflict between the globally declared max row and column declared by the board package and the randrange integer returned by the computer coordinates function. In essence, the range of a randrange integer is always one below the last number declared in the numbered pair i.e. with a map of 5x5 dimensions, if the randrange is set to 1,5 it was always returning one number beneath the last number, in this case 5. This left the entire outer edge of the computer board unavailable for iteration with the enemy squid. To alleviate this error I declared a seperate variabl, comp_maxcol/row, which I passed into the comp coords function and check hit functions to ensure that the entirity of the board is being used in all game loops.
 
+**Score Iteration**
+
+- In the intial cycle of development, an error would occur when attempting to attack again following access of coordinates already stored in the attempts array. This affected both the user and computer check_hit functions, and mean that games could theoretically end in a input validation fail loop. The reason for this was the elif portion of the check_hit function that handles checking the coordinates for their presence on the array - the initial function was using recusion to call the function and not the return value. 
+
+Once changed from;
+
+        if ((col, row)) in attempts:
+                    # Check if in attempts array before hit check
+                    print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
+                    check_hit_player(comp_map, dummy_map, username, attempts)
+
+to;
+
+        if ((col, row)) in attempts:
+                    # Check if in attempts array before hit check
+                    print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
+                    return check_hit_player(comp_map, dummy_map, username, attempts)
+
+the problem ceased to affect the gameplay loop.
+
+**Out of Bounds Errors**
+
+- During early development an out of bounds error would occur when attempting to access the outer axis of the user board due to a discrepancy between the maxcol declared in the play_game function and the size of the board. This would mean that choosing coordinates located on this axis would throw up an instant board.Board.OutOfBoundsError. Once the precise nature of the bug was located, manually adjusting the maxcol value stopped the errors from occuring further, and allowed for the normal defensive programming to run unimpeded.
 
 ### **Unfixed Bugs**
 
-- No other known bugs at time of submission.
+- No known bugs at time of submission.
 
 ## **Deployment**
 
@@ -252,7 +283,7 @@ The process for deployment is listed below;
 
 ## **Credits**
 
-- As always many thanks to my mentor Dick Vlaanderen for the patience, and words of wisdom. This project was very difficult for me, but the advice was always excellent, if not my ability to follow through on it.
+- As always many thanks to my mentor Dick Vlaanderen for his assistance.
 - Inspiration taken from Sinking Ships in the [Legend of Zelda : The Wind Waker](https://www.zeldadungeon.net/wiki/Sinking_Ships). 
 - Research and structural inspiration from similar projects from [Stack Overflow](https://stackoverflow.com/questions/77575338/battleship-project-with-python) and [Code Academy](https://discuss.codecademy.com/t/excellent-battleship-game-written-in-python/430605)
 
