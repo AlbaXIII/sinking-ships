@@ -130,7 +130,7 @@ def choose_map(
             player_map = user_large
 
         else:
-            print("What! Please select S/M/L")
+            print(Fore.RED + "What! Please select S/M/L\n" + Style.RESET_ALL)
             return choose_map(
                     username, user_small, user_med, user_large,
                     comp_small, comp_med, comp_large,
@@ -165,7 +165,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
             else:
                 print(
                     Fore.RED +
-                    "Invalid coordinates - please try again!"
+                    "\nPlease select coordinates within game bounds!\n"
                     + Style.RESET_ALL)
                 player_coords(
                     player_map, user_small, user_med, user_large,
@@ -175,7 +175,7 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
         except ValueError:
             print(
                 Fore.RED +
-                "Invalid input! Please enter a number!" +
+                "\nInvalid input! Please enter a number!\n" +
                 Style.RESET_ALL)
             player_coords(
                 player_map, user_small, user_med, user_large,
@@ -230,21 +230,29 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             # Check if in attempts array before hit check
             print(Fore.BLUE + "Please use new coordinates!" + Style.RESET_ALL)
             return check_hit_player(comp_map, dummy_map, username, attempts)
+            # Disallow hits to number axis
+        elif col == 0:
+            print(Fore.RED + "Please select a coordinate within game bounds!"
+                  + Style.RESET_ALL)
+            return check_hit_player(comp_map, dummy_map, username, attempts)
+
+        elif row == 0:
+            print(Fore.RED + "Please select a coordinate within game bounds!"
+                  + Style.RESET_ALL)
+            return check_hit_player(comp_map, dummy_map, username, attempts)
 
         elif comp_map[col, row] == "B":
-            print(Fore.BLUE + f"\n{username} attack {col}, {row}!"
+            print(Fore.BLUE + f"\n{username} attacks {col}, {row}!"
                   + Style.RESET_ALL)
-            # Hit message for successful attack, using Colorama
+            # Hit message for successful attack
             print(Fore.GREEN + "\nKABOOOOOM! Direct hit!\n" + Style.RESET_ALL)
             # Print attack to dummy board for user visual
             dummy_map.populate(hit, dummy_map.iterline((col, row), (1, 0)))
-            print("Enemy board:")
+            print(Fore.BLUE + "Squid Map" + Style.RESET_ALL)
             # Display dummy board
             dummy_map.draw()
             # Add chosen integers to attempts array
             attempts.append((col, row))
-            print(Fore.BLUE + f"{username}'s attempted attacks - {attempts}\n"
-                  + Style.RESET_ALL)
 
         else:
             # Miss message for unsuccessful attack
@@ -253,24 +261,22 @@ def check_hit_player(comp_map, dummy_map, username, attempts):
             print(Fore.BLUE + "\nSPLOOOOOSH! Missed!\n" + Style.RESET_ALL)
             dummy_map.populate(miss, dummy_map.iterline((col, row), (1, 0)))
             # Display dummy board
-            print("Enemy board:")
+            print(Fore.BLUE + "Squid Map" + Style.RESET_ALL)
             dummy_map.draw()
             attempts.append((col, row))
-            impact = 0
             # If failed attack, nullify hit count
-            print(Fore.BLUE + f"{username}'s attempted attacks - {attempts}\n"
-                  + Style.RESET_ALL)
+            impact = 0
 
     except ValueError:
         # Validation for non-integer input
         print(Fore.RED + "Please enter a number!" + Style.RESET_ALL)
-        check_hit_player(comp_map, dummy_map, username, attempts)
+        return check_hit_player(comp_map, dummy_map, username, attempts)
         # Specific error for board out of bounds integers
     except board.Board.OutOfBoundsError:
         print(
             Fore.RED + "Please select a coordinate within game bounds!"
             + Style.RESET_ALL)
-        check_hit_player(comp_map, dummy_map, username, attempts)
+        return check_hit_player(comp_map, dummy_map, username, attempts)
 
     return impact
 
@@ -297,7 +303,7 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         # Display player board
         player_map.draw()
         c_attempts.append((col, row))
-        print(f"Squid attempted attacks - {c_attempts}\n")
+
     elif ((col, row)) in c_attempts:
         impact = 0
         return check_hit_comp(player_map, username, comp_maxcol,
@@ -312,8 +318,6 @@ def check_hit_comp(player_map, username, comp_maxcol, comp_maxrow, c_attempts):
         c_attempts.append((col, row))
         player_map.draw()
         impact = 0
-        print(f"Squid attempted attacks - {c_attempts}\n")
-        return impact
 
     return impact
 
