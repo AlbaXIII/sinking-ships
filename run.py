@@ -155,11 +155,11 @@ def player_coords(player_map, user_small, user_med, user_large, occupied,
                     and (row, col) \
                     not in occupied:
                 player_map.populate(
-                    ships, player_map.iterline((row, col), (1, 0)))
+                    ships, player_map.iterline((col, row), (1, 0)))
                 # Add to occupied set to avoid repetition
                 occupied.add((row, col))
                 # Comfirmation of placed coordinates
-                print(Fore.GREEN + f"\n Ship placed! - {row}, {col} \n"
+                print(Fore.GREEN + f"\n Ship placed! - {col}, {row} \n"
                       + Style.RESET_ALL)
             # Validation for coordinates out of bounds
             else:
